@@ -11,23 +11,19 @@ const UserProfile = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    fetch(`http://localhost:8080/api/user/get-user-data?username=${username}`)
+    fetch(`http://localhost:8080/api/users/${username}`)
       .then(result => {
           return result.json()
         }
       )
       .then(data => {
         dispatch(setUserProfile(data.userData))
-        console.log(data.userData)
       })
   }, [dispatch, username]); 
 
   return (
     <UserLayout>
-      { 
-      userProfile && <h1>Welcome { userProfile.username }</h1>
-      }
-      
+      { userProfile && <h1>Welcome { userProfile.username }</h1> }
     </UserLayout>
   )
 } 
