@@ -8,6 +8,7 @@ import UserLayout from '../../layouts/UserLayout';
 const UserProfile = () => { 
   const { username } = useParams();
   const userProfile = useSelector(state => state.user)
+  console.log({userProfile})
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -17,7 +18,7 @@ const UserProfile = () => {
         }
       )
       .then(data => {
-        dispatch(setUserProfile(data.userData))
+        dispatch(setUserProfile(data))
       })
   }, [dispatch, username]); 
 

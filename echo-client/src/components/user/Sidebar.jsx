@@ -1,21 +1,21 @@
 import { Link } from "react-router-dom";
-import {useSelector} from "react-redux";
+import { useParams } from "react-router-dom";
 
 const Sidebar = () => {
-  const username = useSelector(state => state.user).username
+  const { username } = useParams()
 
   return (
-    <div className="sidebar-nav">
+      username && 
+      <div className="sidebar-nav">
         <nav>
-            <ul className="border-with-padding">
-                <li><Link to={`/user/${username}`}>My Profile</Link></li>
-                <li><Link to={`/user/${username}/mygear`}>My Gear</Link></li>
-                <li><Link to={`/user/${username}/bookmarks`}>My Bookmarks</Link></li>
-                <li><Link to={`/user/${username}/rentals`}>My Rentals</Link></li>
-                <li><Link to={`/user/${username}/messages`}>My Messages</Link></li>
-            </ul>
+          <ul className="border-with-padding">
+              <li><Link to={`/user/${username}`}>My Profile</Link></li>
+              <li><Link to={`/user/${username}/mygear`}>My Gear</Link></li>
+              <li><Link to={`/user/${username}/bookmarks`}>My Bookmarks</Link></li>
+              <li><Link to={`/user/${username}/messages`}>My Messages</Link></li>
+          </ul>
         </nav>
-    </div>
+      </div>
   )
 }
 

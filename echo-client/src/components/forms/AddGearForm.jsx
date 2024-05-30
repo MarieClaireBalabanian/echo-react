@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useNavigate } from "react-router-dom";
 
 const SignUpForm = () => {
+  console.log('rendering')
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
@@ -94,7 +95,7 @@ const SignUpForm = () => {
           required
         />
       </div>
-      <button type="submit">Sign Up</button>
+      <button type="submit">Submit</button>
     </form>
   );
 };

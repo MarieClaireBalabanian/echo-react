@@ -74,14 +74,7 @@ button:focus-visible {
   }
 }
 
-
-form {
-  margin-bottom: 40px;
-}
-
 .form-field {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
   margin-bottom: 10px;
 }
 

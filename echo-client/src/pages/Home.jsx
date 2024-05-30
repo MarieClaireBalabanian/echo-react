@@ -1,13 +1,10 @@
-import { useEffect, useState } from 'react';
-import SignUpForm from '../components/SignUpForm';
-import LoginForm from '../components/LoginForm';
+import LoginSignUp from '../components/LoginSignUp';
 
 
 const Home = () => { 
   return (
     <div className="page">
-      <SignUpForm />
-      <LoginForm />
+      <LoginSignUp />
     </div>
   )
 } 
