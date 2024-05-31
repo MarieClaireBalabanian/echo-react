@@ -4,6 +4,7 @@ const cors = require('cors')
 const jwt = require('jsonwebtoken');
 
 const db = require("./config/database");
+const GearItemModel = require("./models/GearItem");
 const UserModel = require("./models/User");
 const CategoryModel = require("./models/Category");
 
@@ -41,7 +42,7 @@ const initApp = async () => {
         await db.authenticate();
         console.log("Connection has been established successfully.");
 
-        await db.sync({ force: false, alter: true })
+        await db.sync({ force: true })
 
         app.use('/api', apiRouter);
 

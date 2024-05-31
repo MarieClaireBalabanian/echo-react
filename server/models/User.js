@@ -1,5 +1,6 @@
 const sequelize = require("../config/database")
 const { Sequelize, DataTypes } = require('sequelize')
+const { GearItem } = require('./GearItem')
 
 const User = sequelize.define(
    "User",
@@ -36,5 +37,8 @@ const User = sequelize.define(
     },
    },
 );
+
+User.hasMany(GearItem, { onDelete: 'CASCADE' });
+GearItem.belongsTo(User);
 
 module.exports = { User, sequelize }

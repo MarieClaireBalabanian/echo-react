@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from "react-router-dom";
+import TypedInput from './TypedInput'
 
 const LoginForm = () => {
   const navigate = useNavigate();
@@ -9,8 +10,7 @@ const LoginForm = () => {
     password: '',
   });
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
+  const handleChange = (name, value) => {
     setFormData(prevState => ({
       ...prevState,
       [name]: value
@@ -26,7 +26,9 @@ const LoginForm = () => {
         body: JSON.stringify(formData)
       });
       const json = await response.json();
-      navigate(`/user/${json.username}`)
+      if (response.status === 200) {
+        navigate(`/user/${json.username}`)
+      }
 
     } catch (error) {
         console.log(error)
@@ -35,30 +37,22 @@ const LoginForm = () => {
 
   return (
     <div className="login-form">
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className="border-with-padding">
         <h2>Log In</h2>
-        <div className="form-field">
-          <label htmlFor="email">Email:</label>
-          <input
-            type="email"
-            id="email"
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div className="form-field">
-          <label htmlFor="password">Password:</label>
-          <input
-            type="password"
-            id="password"
-            name="password"
-            value={formData.password}
-            onChange={handleChange}
-            required
-          />
-        </div>
+        <TypedInput 
+          type="email"
+          label="Email Address"
+          name="email"
+          autocomplete="email"
+          onChange={handleChange}
+        />
+        <TypedInput 
+          type="password"
+          label="Password"
+          name="password"
+          autocomplete="password"
+          onChange={handleChange}
+        />
         <button type="submit">Submit</button>
       </form>
     </div>

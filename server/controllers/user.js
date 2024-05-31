@@ -1,6 +1,7 @@
 const { User, sequelize } = require("../models/User");
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const { GearItem } = require('../models/GearItem')
 
 
 const createUser = async (req, res) => {
@@ -13,8 +14,8 @@ const createUser = async (req, res) => {
         const existingUsername = await User.findOne({
             where: {  username: req.body.username }
         });
-        if (existingEmail) return res.status(400).json({ error: 'Email already exists' });
-        if (existingUsername) return res.status(400).json({ error: 'This username is already taken' });
+        if (existingEmail) return res.status(409).json({ error: 'Email already exists' });
+        if (existingUsername) return res.status(409).json({ error: 'This username is already taken' });
         
         // Hash the password
         const hashedPassword = await bcrypt.hash(req.body.password, 10);
@@ -29,7 +30,7 @@ const createUser = async (req, res) => {
         })
         res.status(201).json({username: user.username, message:"Successfully Registered"});
     }
-    catch {
+    catch(error) {
         res.status(500).json({message:"Internal Error", error: error});
     } 
  };
@@ -40,7 +41,7 @@ const createUser = async (req, res) => {
         const user = await User.findOne({
             where: { email: req.body.email },
         });
-        if (!user) return res.status(401).json({ error: 'No account with this email address' });
+        if (!user) return res.status(404).json({ error: 'No account with this email address' });
         // check passwword
         const passwordMatch = await bcrypt.compare(req.body.password, user.password);
         if (!passwordMatch) return res.status(401).json({ error: 'Invalid password' });
@@ -54,13 +55,15 @@ const createUser = async (req, res) => {
     }
 };
 
-const getUserData = async (req, res) => {
+const getUser = async (req, res) => {
     try {
         const user = await User.findOne({
-            where: { username: req.query.username },
-            attributes: ['address', 'username' ]
+            where: { username: req.params.username},
+            include: { model: GearItem }
         });
-        res.status(200).json({ userData: user });  
+
+        if (!user) return res.status(404).json({ message: 'User not found' });  
+        res.status(200).json(user);  
     }
     catch(error) {
         res.status(500).json({message:"Internal Error", error: error});
@@ -88,7 +91,6 @@ const getAllUsers = async (req, res) => {
  };
  
 const editUser = (req, res) => {};
-
 const deleteUser = (req, res) => {};
 
-module.exports = { createUser, getAllUsers, getUserData, verifyUser, editUser, deleteAllUsers };
+module.exports = { createUser, getAllUsers, getUser, verifyUser, editUser, deleteUser, deleteAllUsers };

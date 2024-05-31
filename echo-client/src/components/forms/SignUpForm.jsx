@@ -1,10 +1,11 @@
 import { useState } from 'react';
 import { useNavigate } from "react-router-dom";
+import TypedInput from './TypedInput'
+import AddressAuto from './AddressAuto';
 
 const SignUpForm = () => {
-  console.log('rendering')
   const navigate = useNavigate();
-
+ 
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -13,8 +14,7 @@ const SignUpForm = () => {
     address: ''
   });
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
+  const handleChange = (name, value) => {
     setFormData(prevState => ({
       ...prevState,
       [name]: value
@@ -30,8 +30,9 @@ const SignUpForm = () => {
         body: JSON.stringify(formData)
       });
       const json = await response.json();
-      navigate(`/user/${json.username}`)
-
+      if (response.status === 201) {
+        navigate(`/user/${json.username}`)
+      }
     } catch (error) {
       console.log(error)
     }
@@ -39,63 +40,37 @@ const SignUpForm = () => {
 
   return (
     <div className="signup-form">
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className="border-with-padding">
         <h2>Sign Up</h2>
-        <div className="form-field">
-          <label htmlFor="username">Name:</label>
-          <input
-            type="text"
-            id="name"
-            name="name"
-            value={formData.name}
-            onChange={handleChange}
-            required
+        <TypedInput 
+          type="text"
+          label="Full Name"
+          name="name"
+          autocomplete="name"
+          onChange={handleChange}
           />
-        </div>
-        <div className="form-field">
-          <label htmlFor="email">Email:</label>
-          <input
-            type="email"
-            id="email"
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div className="form-field">
-          <label htmlFor="username">Username:</label>
-          <input
-            type="text"
-            id="username"
-            name="username"
-            value={formData.username}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div className="form-field">
-          <label htmlFor="password">Password:</label>
-          <input
-            type="password"
-            id="password"
-            name="password"
-            value={formData.password}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div className="form-field">
-          <label htmlFor="address">Address:</label>
-          <input
-            type="text"
-            id="address"
-            name="address"
-            value={formData.address}
-            onChange={handleChange}
-            required
-          />
-        </div>
+        <TypedInput 
+          type="email"
+          label="Email Address"
+          name="email"
+          autocomplete="email"
+          onChange={handleChange}
+        />
+        <TypedInput 
+          type="text"
+          label="Username"
+          name="username"
+          autocomplete="username"
+          onChange={handleChange}
+        />
+        <TypedInput 
+          type="password"
+          label="Password"
+          name="password"
+          autocomplete="new-password"
+          onChange={handleChange}
+        />
+        <AddressAuto onChange={handleChange} />
         <button type="submit">Submit</button>
       </form>
     </div>
