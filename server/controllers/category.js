@@ -1,4 +1,6 @@
 const { Category, sequelize } = require("../models/Category");
+const { GearItem } = require('../models/GearItem')
+
 
 const createCategory = async (req, res) => {
     try {
@@ -8,17 +10,21 @@ const createCategory = async (req, res) => {
         if (existingCategory) return res.status(409).json({ error: 'Category already exists' });
 
         await Category.create({ name: req.body.name })
-        res.status(201).json({message:"Category created"});
+        res.status(201).json({ message:"Category created" });
     }
     catch {
-        res.status(500).json({message:"Error creating category"});
+        res.status(500).json({ message:"Error creating category" });
     }
 };
 
 const getCategory = async (req, res) => {
     try {
         const category = await Category.findOne({
-            where: { id: req.params.id }
+            where: { id: req.params.id },
+            include: { 
+                model: GearItem, 
+                through: {attributes: []}
+            },
         });
         if (!category) return res.status(404).json({ message:"Category doesn't exist"});
         res.status(200).json({ category: category, message:"Category retrieved"});
@@ -31,7 +37,7 @@ const getCategory = async (req, res) => {
 const getAllCategories = async (req, res) => {
     try {
         const categories = await Category.findAll();
-        res.status(200).json({categories: categories, message: 'Success fetching all categories'});
+        res.status(200).json(categories);
     }
     catch {
         res.status(500).json({message:"Error fetching all categories"});

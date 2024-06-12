@@ -42,7 +42,7 @@ const initApp = async () => {
         await db.authenticate();
         console.log("Connection has been established successfully.");
 
-        await db.sync({ force: true })
+        await db.sync({ alter: true })
 
         app.use('/api', apiRouter);
 

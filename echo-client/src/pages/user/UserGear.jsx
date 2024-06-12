@@ -1,4 +1,5 @@
-import UserLayout from '../../layouts/UserLayout';
+import MyGearList from '../../components/user/MyGearList'
+import AddGearForm from '../../components/forms/AddGearForm';
 
 const UserGear = () => { 
 //   const [ userData, setUserData]  = useState({});
@@ -21,9 +22,11 @@ const UserGear = () => {
 //   }, [username]); 
 
   return (
-    <UserLayout>
+    <div>
       <h1>My Gear</h1>
-    </UserLayout>
+      <MyGearList />
+      <AddGearForm />
+    </div>
   )
 } 
 

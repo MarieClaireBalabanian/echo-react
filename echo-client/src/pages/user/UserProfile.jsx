@@ -1,31 +1,41 @@
 import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import {useDispatch, useSelector} from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setUserProfile } from "../../features/user/userSlice";
-import UserLayout from '../../layouts/UserLayout';
 
 
 const UserProfile = () => { 
+  const echo_api = import.meta.env.VITE_API_URL;
+
   const { username } = useParams();
   const userProfile = useSelector(state => state.user)
-  console.log({userProfile})
   const dispatch = useDispatch();
 
+
+  const fetchUser = async () => {
+    try {
+      const response = await fetch(`${echo_api}/users/${username}`);
+      const user = await response.json();
+      dispatch(setUserProfile(user))
+    } catch (error) {
+      console.log('Error fetching data:', error);
+    }
+  };
+
   useEffect(() => {
-    fetch(`http://localhost:8080/api/users/${username}`)
-      .then(result => {
-          return result.json()
-        }
-      )
-      .then(data => {
-        dispatch(setUserProfile(data))
-      })
-  }, [dispatch, username]); 
+    if (!userProfile) {
+      fetchUser()
+    }
+  }, []); 
 
   return (
-    <UserLayout>
-      { userProfile && <h1>Welcome { userProfile.username }</h1> }
-    </UserLayout>
+    <div>
+      { userProfile ?
+        <h1>Welcome { userProfile.username }</h1>
+        : 
+        <h1>Loading Profile</h1>
+      }    
+    </div>
   )
 } 
 

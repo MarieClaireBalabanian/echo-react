@@ -1,16 +1,20 @@
 import { useState } from 'react';
-import { useNavigate } from "react-router-dom";
+import { useSelector } from 'react-redux';
+import TypedInput from './TypedInput'
+import Select from './Select';
+import TextArea from './TextArea'
 
-const SignUpForm = () => {
-  console.log('rendering')
-  const navigate = useNavigate();
+
+const AddGearForm = () => {
+  const echo_api = import.meta.env.VITE_API_URL;
+  const gearCategories = useSelector(state => state.categories)
 
   const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    username: '',
-    password: '',
-    address: ''
+    title: '',
+    makeModel: '',
+    description: '',
+    categories: [],
+    address: 'Seattle, WA'
   });
 
   const handleChange = (e) => {
@@ -24,14 +28,12 @@ const SignUpForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch('http://localhost:8080/api/users/signup/', {
+      const response = await fetch(`${echo_api}/gear/create`, {
         method: 'post',
         headers: {'Content-Type':'application/json'},
         body: JSON.stringify(formData)
       });
       const json = await response.json();
-      navigate(`/user/${json.username}`)
-
     } catch (error) {
       console.log(error)
     }
@@ -39,65 +41,35 @@ const SignUpForm = () => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <h2>Sign Up</h2>
-      <div className="form-field">
-        <label htmlFor="username">Name:</label>
-        <input
+      <h2>Add Gear</h2>
+      <TypedInput 
           type="text"
-          id="name"
-          name="name"
-          value={formData.name}
+          label="Title"
+          name="add-gear-title"
+          autocomplete="off"
           onChange={handleChange}
-          required
         />
-      </div>
-      <div className="form-field">
-        <label htmlFor="email">Email:</label>
-        <input
-          type="email"
-          id="email"
-          name="email"
-          value={formData.email}
-          onChange={handleChange}
-          required
-        />
-      </div>
-      <div className="form-field">
-        <label htmlFor="username">Username:</label>
-        <input
+        <TypedInput 
           type="text"
-          id="username"
-          name="username"
-          value={formData.username}
+          label="Make & Model"
+          name="add-gear-make-model"
+          autocomplete="off"
           onChange={handleChange}
-          required
         />
-      </div>
-      <div className="form-field">
-        <label htmlFor="password">Password:</label>
-        <input
-          type="password"
-          id="password"
-          name="password"
-          value={formData.password}
+        <Select
+          name="categories"
+          label="Categories"
+          options={gearCategories}
           onChange={handleChange}
-          required
         />
-      </div>
-      <div className="form-field">
-        <label htmlFor="address">Address:</label>
-        <input
-          type="text"
-          id="address"
-          name="address"
-          value={formData.address}
+        <TextArea 
+          label="Description"
+          name="add-gear-desc"
           onChange={handleChange}
-          required
         />
-      </div>
       <button type="submit">Submit</button>
     </form>
   );
 };
 
-export default SignUpForm;
+export default AddGearForm;

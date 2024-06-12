@@ -1,14 +1,15 @@
 import Sidebar from '../components/user/Sidebar'
+import { Outlet } from 'react-router-dom'
 
-const UserLayout = ({ children }) => {
+const UserLayout = () => {
     return (
         <div>
-            <main>
-                <div className="flex-wrapper">
-                    <Sidebar />
-                    {children}
+            <div className="flex-wrapper">
+                <Sidebar />
+                <div className="main-content">
+                    <Outlet />
                 </div>
-            </main>
+            </div>
         </div>
     );
 };

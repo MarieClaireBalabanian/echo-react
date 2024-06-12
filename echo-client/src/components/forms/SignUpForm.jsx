@@ -4,6 +4,7 @@ import TypedInput from './TypedInput'
 import AddressAuto from './AddressAuto';
 
 const SignUpForm = () => {
+  const echo_api = import.meta.env.VITE_API_URL;
   const navigate = useNavigate();
  
   const [formData, setFormData] = useState({
@@ -11,6 +12,7 @@ const SignUpForm = () => {
     email: '',
     username: '',
     password: '',
+    geo: '',
     address: ''
   });
 
@@ -24,12 +26,13 @@ const SignUpForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch('http://localhost:8080/api/users/signup/', {
+      const response = await fetch(`${echo_api}/users/signup/`, {
         method: 'post',
         headers: {'Content-Type':'application/json'},
         body: JSON.stringify(formData)
       });
       const json = await response.json();
+
       if (response.status === 201) {
         navigate(`/user/${json.username}`)
       }

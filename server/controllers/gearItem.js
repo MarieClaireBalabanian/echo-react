@@ -7,26 +7,40 @@ const createGearItem = async (req, res) => {
         const user = await User.findByPk(req.body.userId);
         if (!user) return res.status(404).json({ error: 'User not found' });
 
-        const gearItem = await GearItem.create(
-            {
-                title: req.body.title,
-                makeModel: req.body.makeModel,
-                description: req.body.description,
-                location: req.body.location,
-                UserId: user.id
-            },
-        );
+        const gearItem = await GearItem.create({
+            title: req.body.title,
+            makeModel: req.body.makeModel,
+            description: req.body.description,
+            location: req.body.location,
+            UserId: user.id
+        });
         if (req.body.categories && req.body.categories.length > 0) {
             const categories = await Category.findAll({
-              where: { id: req.body.categories } // Assuming category IDs are passed in the request body
+              where: { id: req.body.categories }
             });
-            console.log(categories)
             await gearItem.addCategories(categories);
-          }
+        }
         res.status(201).json({gearItem: gearItem, message:"GearItem Item added!"});
     }
     catch {
         res.status(500).json({message:"Error creating gear item"});
+    }
+};
+
+const getUserGearItems = async (req, res) => {
+    try {
+        const gearItems = await GearItem.findAll({
+            where: { UserId: req.params.userId },
+            include: { 
+                model: Category, 
+                attributes:['name', 'id'] ,
+                through: {attributes: []}
+            },
+        });
+        res.status(200).json({ gearItem: gearItems, message:"User gear retrieved"});
+    }
+    catch {
+        res.status(500).json({message:"Error fetching user gear"});
     }
 };
 
@@ -50,4 +64,4 @@ const deleteAllGearItems = async (req, res) => {
     }
  };
 
-module.exports = { createGearItem, getAllGearItems, deleteAllGearItems };
+module.exports = { createGearItem, getAllGearItems, getUserGearItems, deleteAllGearItems };

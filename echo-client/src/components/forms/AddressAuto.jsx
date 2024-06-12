@@ -6,13 +6,15 @@ const AddressAuto = ({onChange}) => {
     const token = import.meta.env.VITE_MAPBOX_TOKEN;
 
     const handleRetrieve = (selectedItem) => {
-        let coordinates = selectedItem.features[0].geometry.coordinates;
-        const fixedCoords = coordinates.map((x) => x.toFixed(4));
-        onChange("address", fixedCoords.toString());
+        const data = selectedItem.features[0];
+        const fixedCoords = data.geometry.coordinates.map((x) => x.toFixed(4));
+        onChange("geo", fixedCoords.toString());
+        onChange("address", `${data.properties.place}, ${data.properties.region_code}`);
+
     };
     return (
         <div>
-            <AddressAutofill accessToken={token} onRetrieve={handleRetrieve}>
+            <AddressAutofill accessToken={token} country="us" onRetrieve={handleRetrieve}>
                 <label htmlFor="address">Address</label>
                 <input name="address"
                     aria-required="true"

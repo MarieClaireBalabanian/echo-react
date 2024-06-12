@@ -2,6 +2,7 @@ const { User, sequelize } = require("../models/User");
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const { GearItem } = require('../models/GearItem')
+const { Category } = require('../models/Category')
 
 
 const createUser = async (req, res) => {
@@ -28,7 +29,7 @@ const createUser = async (req, res) => {
             password: hashedPassword,
             address: req.body.address,
         })
-        res.status(201).json({username: user.username, message:"Successfully Registered"});
+        res.status(201).json({user: user, message:"Successfully Registered"});
     }
     catch(error) {
         res.status(500).json({message:"Internal Error", error: error});
@@ -47,7 +48,7 @@ const createUser = async (req, res) => {
         if (!passwordMatch) return res.status(401).json({ error: 'Invalid password' });
         // create jwt token
         const token = jwt.sign({ email: user.email }, 'secret');
-        if (token) res.status(200).json({ username: user.username});
+        if (token) res.status(200).json({ user: user});
         else res.status(500).json({ error: 'Error setting jwtoken' });
     }
     catch(error) {
@@ -59,7 +60,14 @@ const getUser = async (req, res) => {
     try {
         const user = await User.findOne({
             where: { username: req.params.username},
-            include: { model: GearItem }
+            include: { 
+                model: GearItem,
+                include: { 
+                    model: Category,
+                    attributes:['name', 'id'] ,
+                    through: {attributes: []}
+                } 
+            }
         });
 
         if (!user) return res.status(404).json({ message: 'User not found' });  
