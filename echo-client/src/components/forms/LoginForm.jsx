@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import TypedInput from './TypedInput'
+import { loginUser } from '../../api/user'
 
 const LoginForm = () => {
-  const echo_api = import.meta.env.VITE_API_URL;
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
@@ -21,18 +21,10 @@ const LoginForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch(`${echo_api}/users/login/`, {
-        method: 'post',
-        headers: {'Content-Type':'application/json'},
-        body: JSON.stringify(formData)
-      });
-      const json = await response.json();
-      if (response.status === 200) {
-        navigate(`/user/${json.username}`)
-      }
-
+      const { response, json } = await loginUser(formData)
+      if (response.status === 200) navigate(`/user/${json.user.username}`)
     } catch (error) {
-        console.log(error)
+      console.log(error)
     }
   };
 

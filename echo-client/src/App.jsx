@@ -12,6 +12,7 @@ import Footer from "./components/global/Footer"
 import ScrollToTop from "./utilities/scrollToTop"
 
 import "./index.css"
+import "./destyle.scss"
 
 function App() {
   const echo_api = import.meta.env.VITE_API_URL;

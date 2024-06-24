@@ -1,30 +1,36 @@
-import MyGearList from '../../components/user/MyGearList'
+import { useEffect } from 'react'
+import GearList from '../../components/gear/GearList'
 import AddGearForm from '../../components/forms/AddGearForm';
+import { useDispatch, useSelector } from "react-redux";
+import { setUserGear } from "../../features/gear/gearSlice";
+import { getUserGearItems } from "../../api/gear"
+
 
 const UserGear = () => { 
-//   const [ userData, setUserData]  = useState({});
+    const userId = useSelector(state => state.user.id)
+    const gearList = useSelector(state => state.gear)
+    const dispatch = useDispatch();
 
-//   useEffect(() => {
-//     fetch(`http://localhost:8080/users/.....`)
-//       .then(result => {
-//           return result.json()
-//         }
-//       )
-//       .then(data => {
-//         setUserData(prevState => ({
-//           ...prevState,
-//           ...data.userData
-//         }));
-//       })
-//       .catch(error => {
-//         console.log(error)
-//       });
-//   }, [username]); 
+    const fetchUserGear = async () => {
+      try {
+        const res = await getUserGearItems(userId);
+        dispatch(setUserGear(res.gear))
+      } catch (error) {
+        console.log(error);
+      }
+    };
+  
+    useEffect(() => {
+      if (!gearList) fetchUserGear()
+    }, []); 
+
 
   return (
     <div>
       <h1>My Gear</h1>
-      <MyGearList />
+      {
+        gearList && <GearList gearList={gearList} />
+      }
       <AddGearForm />
     </div>
   )

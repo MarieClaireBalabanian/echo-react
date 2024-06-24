@@ -8,13 +8,13 @@ const AddressAuto = ({onChange}) => {
     const handleRetrieve = (selectedItem) => {
         const data = selectedItem.features[0];
         const fixedCoords = data.geometry.coordinates.map((x) => x.toFixed(4));
-        onChange("geo", fixedCoords.toString());
-        onChange("address", `${data.properties.place}, ${data.properties.region_code}`);
+        onChange("coords", fixedCoords.toString());
+        onChange("location", `${data.properties.place}, ${data.properties.region_code}`);
 
     };
     return (
-        <div>
-            <AddressAutofill accessToken={token} country="us" onRetrieve={handleRetrieve}>
+        <div className="address-autofill">
+            <AddressAutofill accessToken={token} onRetrieve={handleRetrieve}>
                 <label htmlFor="address">Address</label>
                 <input name="address"
                     aria-required="true"

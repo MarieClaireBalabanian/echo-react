@@ -1,4 +1,3 @@
-
 import PropTypes from 'prop-types';
 
 // Required defaults to true
@@ -6,7 +5,6 @@ import PropTypes from 'prop-types';
 // TODO: client-side validation, implement appropriate aria attributes
 
 const Select = ({name, label, options, required=true, onChange}) => {
-    console.log({options})
     const handleChange = (e) => {
         const { value } = e.target;
         onChange(name, value);

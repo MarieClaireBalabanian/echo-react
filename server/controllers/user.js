@@ -15,6 +15,7 @@ const createUser = async (req, res) => {
         const existingUsername = await User.findOne({
             where: {  username: req.body.username }
         });
+        
         if (existingEmail) return res.status(409).json({ error: 'Email already exists' });
         if (existingUsername) return res.status(409).json({ error: 'This username is already taken' });
         
@@ -36,7 +37,7 @@ const createUser = async (req, res) => {
     } 
  };
 
- const verifyUser = async (req, res) => {
+ const loginUser = async (req, res) => {
     try {
         // does account with email exist
         const user = await User.findOne({
@@ -60,14 +61,6 @@ const getUser = async (req, res) => {
     try {
         const user = await User.findOne({
             where: { username: req.params.username},
-            include: { 
-                model: GearItem,
-                include: { 
-                    model: Category,
-                    attributes:['name', 'id'] ,
-                    through: {attributes: []}
-                } 
-            }
         });
 
         if (!user) return res.status(404).json({ message: 'User not found' });  
@@ -76,6 +69,28 @@ const getUser = async (req, res) => {
     catch(error) {
         res.status(500).json({message:"Internal Error", error: error});
     }
+};
+ 
+const editUser = async (req, res) => {
+    try {
+        const user = await User.findOne({
+            where: { id: req.params.id }
+        });
+        for (const [key, value] of Object.entries(req.body)) {
+            user[key] = value;
+        }
+        await user.save() 
+        res.status(200).json({user: user}) 
+    } 
+    catch(error) {
+        res.status(500).json({message: 'Internal Error', error: error }) 
+    }
+};
+const deleteUser = async (req, res) => {
+    const user = await User.findOne({
+        where: { id: req.params.id }
+    });
+    user.destroy()
 };
 
 const getAllUsers = async (req, res) => {
@@ -97,8 +112,5 @@ const getAllUsers = async (req, res) => {
         res.status(500).json({message:"Internal Error", error: error});
     }
  };
- 
-const editUser = (req, res) => {};
-const deleteUser = (req, res) => {};
 
-module.exports = { createUser, getAllUsers, getUser, verifyUser, editUser, deleteUser, deleteAllUsers };
+module.exports = { createUser, getAllUsers, getUser, loginUser, editUser, deleteUser, deleteAllUsers };

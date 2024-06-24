@@ -37,7 +37,7 @@ const getUserGearItems = async (req, res) => {
                 through: {attributes: []}
             },
         });
-        res.status(200).json({ gearItem: gearItems, message:"User gear retrieved"});
+        res.status(200).json(gearItems);
     }
     catch {
         res.status(500).json({message:"Error fetching user gear"});

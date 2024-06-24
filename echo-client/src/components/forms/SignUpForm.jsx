@@ -2,9 +2,9 @@ import { useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import TypedInput from './TypedInput'
 import AddressAuto from './AddressAuto';
+import { createUser } from '../../api/user'
 
 const SignUpForm = () => {
-  const echo_api = import.meta.env.VITE_API_URL;
   const navigate = useNavigate();
  
   const [formData, setFormData] = useState({
@@ -12,8 +12,8 @@ const SignUpForm = () => {
     email: '',
     username: '',
     password: '',
-    geo: '',
-    address: ''
+    coords: '',
+    location: ''
   });
 
   const handleChange = (name, value) => {
@@ -26,16 +26,8 @@ const SignUpForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch(`${echo_api}/users/signup/`, {
-        method: 'post',
-        headers: {'Content-Type':'application/json'},
-        body: JSON.stringify(formData)
-      });
-      const json = await response.json();
-
-      if (response.status === 201) {
-        navigate(`/user/${json.username}`)
-      }
+      const { response, json } = await createUser(formData)
+      if (response.status === 201) navigate(`/user/${json.user.username}`)
     } catch (error) {
       console.log(error)
     }

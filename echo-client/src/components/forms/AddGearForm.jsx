@@ -1,20 +1,27 @@
 import { useState } from 'react';
-import { useSelector } from 'react-redux';
+
 import TypedInput from './TypedInput'
 import Select from './Select';
 import TextArea from './TextArea'
 
+import { useDispatch, useSelector } from "react-redux";
+import { setUserGear } from "../../features/gear/gearSlice";
+import { createGearItem } from "../../api/gear"
+
 
 const AddGearForm = () => {
-  const echo_api = import.meta.env.VITE_API_URL;
+  const dispatch = useDispatch();
+
   const gearCategories = useSelector(state => state.categories)
+  const userLocation = useSelector(state => state.user.location)
+  const gearList = useSelector(state => state.gear)
 
   const [formData, setFormData] = useState({
     title: '',
     makeModel: '',
     description: '',
     categories: [],
-    address: 'Seattle, WA'
+    location: userLocation
   });
 
   const handleChange = (e) => {
@@ -28,19 +35,15 @@ const AddGearForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch(`${echo_api}/gear/create`, {
-        method: 'post',
-        headers: {'Content-Type':'application/json'},
-        body: JSON.stringify(formData)
-      });
-      const json = await response.json();
+      const { response, json } = await createGearItem(formData)
+      if (response.status === 201) console.log(json)
     } catch (error) {
       console.log(error)
     }
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className="border-with-padding">
       <h2>Add Gear</h2>
       <TypedInput 
           type="text"
