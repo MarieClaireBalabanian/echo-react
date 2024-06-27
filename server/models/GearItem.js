@@ -29,6 +29,6 @@ const GearItem = sequelize.define(
     }
 );
 
-Category.belongsToMany(GearItem, { through: 'CategoryGearItem', onDelete: 'CASCADE' });
-GearItem.belongsToMany(Category, { through: 'CategoryGearItem', onDelete: 'CASCADE' });
+Category.belongsToMany(GearItem, { through: 'CategoryGearItem' });
+GearItem.belongsToMany(Category, { through: 'CategoryGearItem' });
 module.exports = { GearItem, sequelize }

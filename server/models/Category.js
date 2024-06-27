@@ -1,5 +1,7 @@
 const sequelize = require("../config/database")
 const { Sequelize, DataTypes } = require('sequelize')
+const { GearItem } = require('./GearItem')
+
 
 const Category = sequelize.define(
    "Category",

@@ -8,6 +8,8 @@ export const loginUser = async (formData) => {
       headers: {'Content-Type':'application/json'},
       body: JSON.stringify(formData)
     });
+
+    console.log(response)
     const json = await response.json();
     return { response, json }
   } catch (error) {

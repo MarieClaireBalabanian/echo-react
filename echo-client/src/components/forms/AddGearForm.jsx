@@ -6,14 +6,14 @@ import TextArea from './TextArea'
 
 import { useDispatch, useSelector } from "react-redux";
 import { setUserGear } from "../../features/gear/gearSlice";
-import { createGearItem } from "../../api/gear"
+import { createUserGearItem } from "../../api/gear"
 
 
 const AddGearForm = () => {
   const dispatch = useDispatch();
 
   const gearCategories = useSelector(state => state.categories)
-  const userLocation = useSelector(state => state.user.location)
+  const user = useSelector(state => state.user)
   const gearList = useSelector(state => state.gear)
 
   const [formData, setFormData] = useState({
@@ -21,11 +21,10 @@ const AddGearForm = () => {
     makeModel: '',
     description: '',
     categories: [],
-    location: userLocation
+    location: user.location
   });
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
+  const handleChange = (name, value) => {
     setFormData(prevState => ({
       ...prevState,
       [name]: value
@@ -34,9 +33,12 @@ const AddGearForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    console.log(formData, 'form data')
     try {
-      const { response, json } = await createGearItem(formData)
+      const { response, json } = await createUserGearItem(formData, user.id)
       if (response.status === 201) console.log(json)
+        dispatch()
     } catch (error) {
       console.log(error)
     }
@@ -48,14 +50,14 @@ const AddGearForm = () => {
       <TypedInput 
           type="text"
           label="Title"
-          name="add-gear-title"
+          name="title"
           autocomplete="off"
           onChange={handleChange}
         />
         <TypedInput 
           type="text"
           label="Make & Model"
-          name="add-gear-make-model"
+          name="makeModel"
           autocomplete="off"
           onChange={handleChange}
         />
@@ -67,7 +69,7 @@ const AddGearForm = () => {
         />
         <TextArea 
           label="Description"
-          name="add-gear-desc"
+          name="description"
           onChange={handleChange}
         />
       <button type="submit">Submit</button>

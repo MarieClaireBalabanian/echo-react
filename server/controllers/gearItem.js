@@ -2,9 +2,9 @@ const { GearItem, sequelize } = require("../models/GearItem");
 const { User } = require('../models/User')
 const { Category } = require('../models/Category')
 
-const createGearItem = async (req, res) => {
+const createUserGearItem = async (req, res) => {
     try {
-        const user = await User.findByPk(req.body.userId);
+        const user = await User.findByPk(req.params.userId);
         if (!user) return res.status(404).json({ error: 'User not found' });
 
         const gearItem = await GearItem.create({
@@ -44,6 +44,19 @@ const getUserGearItems = async (req, res) => {
     }
 };
 
+const deleteUserGearItem = async (req, res) => {
+    try {
+        const gearItem = await GearItem.findByPk(req.params.gearId);
+        if (!gearItem) return res.status(200).json({message: "item doesn't exist"}) 
+        await gearItem.setCategories([]); 
+        await gearItem.destroy();
+        res.status(200).json({message: 'Item deleted!'}) 
+    }
+    catch(error) {
+        res.status(500).json({message:"Internal Error", error: error});
+    }
+ };
+
 const getAllGearItems = async (req, res) => {
     try {
         const gearItem = await GearItem.findAll();
@@ -56,12 +69,17 @@ const getAllGearItems = async (req, res) => {
 
 const deleteAllGearItems = async (req, res) => {
     try {
-        await GearItem.truncate();
-        res.status(200).json({message: 'All gear items deleted'}) 
+        const gearItems = await GearItem.findAll();
+        if (!gearItems.length) return;
+        await Promise.all(gearItems.map(async (gearItem) => {
+            await gearItem.setCategories([]); 
+            await gearItem.destroy();
+        }));
+        res.status(200).json({ message:"All gear items deleted"});
     }
     catch(error) {
         res.status(500).json({message:"Internal Error", error: error});
     }
  };
 
-module.exports = { createGearItem, getAllGearItems, getUserGearItems, deleteAllGearItems };
+module.exports = { createUserGearItem, deleteUserGearItem, getAllGearItems, getUserGearItems, deleteAllGearItems };

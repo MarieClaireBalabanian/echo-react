@@ -29,17 +29,20 @@ body, .App {
 
 .form-field {
   margin-bottom: 10px;
-  display: flex;
-  flex-direction: column;
   margin-bottom: 1rem;
+}
 
-  label {
-    font-size: .8rem;
-    color: blue;
-    font-weight: medium;
-    text-transform: uppercase;
-    margin-bottom: .2rem;
-  }
+label {
+  font-size: .8rem;
+  color: blue;
+  font-weight: medium;
+  text-transform: uppercase;
+  margin-bottom: .2rem;
+  display: block;
+}
+
+input, select, textarea {
+  border: 1px solid black;
 }
 
 

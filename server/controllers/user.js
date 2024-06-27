@@ -1,8 +1,6 @@
 const { User, sequelize } = require("../models/User");
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const { GearItem } = require('../models/GearItem')
-const { Category } = require('../models/Category')
 
 
 const createUser = async (req, res) => {
@@ -28,7 +26,8 @@ const createUser = async (req, res) => {
             email: req.body.email,
             username: req.body.username,
             password: hashedPassword,
-            address: req.body.address,
+            coords: req.body.coords,
+            location: req.body.location
         })
         res.status(201).json({user: user, message:"Successfully Registered"});
     }
@@ -73,9 +72,9 @@ const getUser = async (req, res) => {
  
 const editUser = async (req, res) => {
     try {
-        const user = await User.findOne({
-            where: { id: req.params.id }
-        });
+        const user = await User.findByPk(req.params.id);
+        if (!user) return res.status(404).json({message: 'User not found' }) 
+
         for (const [key, value] of Object.entries(req.body)) {
             user[key] = value;
         }
@@ -87,10 +86,25 @@ const editUser = async (req, res) => {
     }
 };
 const deleteUser = async (req, res) => {
-    const user = await User.findOne({
-        where: { id: req.params.id }
-    });
-    user.destroy()
+    try {
+        const user = await User.findByPk(req.params.id, {
+            include: 'GearItem' 
+        });
+
+        if (!user) return res.status(404).json({message: 'User not found' }) 
+
+        if (user.GearItems && user.GearItems.length > 0) {
+            await Promise.all(user.GearItems.map(async (gearItem) => {
+                await gearItem.setCategories([]);
+                await gearItem.destroy();
+            }));
+        }
+        await user.destroy();
+        res.status(200).json({ message: 'User deleted!' });  
+    }
+    catch(error) {
+        res.status(500).json({message:"Internal Error", error: error});
+    }
 };
 
 const getAllUsers = async (req, res) => {
@@ -104,13 +118,7 @@ const getAllUsers = async (req, res) => {
  };
 
  const deleteAllUsers = async (req, res) => {
-    try {
-        await User.truncate();
-        res.status(200).json({message: 'All users deleted'}) 
-    }
-    catch(error) {
-        res.status(500).json({message:"Internal Error", error: error});
-    }
+
  };
 
 module.exports = { createUser, getAllUsers, getUser, loginUser, editUser, deleteUser, deleteAllUsers };

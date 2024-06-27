@@ -1,12 +1,12 @@
-const { createGearItem, getAllGearItems, getUserGearItems, deleteAllGearItems } = require("../controllers/gearItem");
-
 const express = require("express");
 const gearRouter = express.Router();
+const { createUserGearItem, getAllGearItems, getUserGearItems, deleteUserGearItem, deleteAllGearItems } = require("../controllers/gearItem");
 
-// Gears
-gearRouter.post("/", createGearItem);
+// Gear
 gearRouter.get("/", getAllGearItems);
+gearRouter.delete("/", deleteAllGearItems);
+gearRouter.post("/:userId", createUserGearItem);
 gearRouter.get("/:userId", getUserGearItems);
-gearRouter.delete("/delete-all-gear", deleteAllGearItems);
+gearRouter.delete("/:userId/:gearId", deleteUserGearItem);
 
 module.exports = { gearRouter };

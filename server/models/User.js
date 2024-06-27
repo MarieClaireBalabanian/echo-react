@@ -26,7 +26,11 @@ const User = sequelize.define(
         type: DataTypes.STRING,
         allowNull: false,
     },
-    address: {
+    coords: {
+        type: DataTypes.STRING,
+        allowNull: false,
+    },
+    location: {
         type: DataTypes.STRING,
         allowNull: false,
     },
@@ -38,7 +42,7 @@ const User = sequelize.define(
    },
 );
 
-User.hasMany(GearItem, { onDelete: 'CASCADE' });
-GearItem.belongsTo(User);
+User.hasMany(GearItem);
+GearItem.belongsTo(User, { onDelete: 'CASCADE' });
 
 module.exports = { User, sequelize }

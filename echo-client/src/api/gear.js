@@ -1,14 +1,15 @@
 const echo_api = import.meta.env.VITE_API_URL;
 
-export const createGearItem = async (formData) => {
+export const createUserGearItem = async (formData, userId) => {
   try {
-      const response = await fetch(`${echo_api}gear/`, {
-          method: 'post',
-          headers: {'Content-Type':'application/json'},
-          body: JSON.stringify(formData)
-      });
-      const json = await response.json()
-      return { response, json }
+    const response = await fetch(`${echo_api}/gear/${userId}`, {
+      method: 'post',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(formData)
+    });
+
+    const json = await response.json()
+    return { response, json }
   } catch (error) {
     console.log(error);
   }

@@ -20,9 +20,7 @@ const UserProfile = () => {
   };
 
   useEffect(() => {
-    if (!userProfile) {
-      fetchUser()
-    }
+    fetchUser()
   }, []); 
 
   return (

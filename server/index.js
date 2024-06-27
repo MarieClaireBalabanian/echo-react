@@ -4,9 +4,9 @@ const cors = require('cors')
 const jwt = require('jsonwebtoken');
 
 const db = require("./config/database");
-const GearItemModel = require("./models/GearItem");
 const UserModel = require("./models/User");
 const CategoryModel = require("./models/Category");
+const GearItemModel = require("./models/GearItem");
 
 const port = 8080;
 const { apiRouter } = require('./routes');
