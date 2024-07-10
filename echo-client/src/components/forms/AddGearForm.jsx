@@ -33,12 +33,9 @@ const AddGearForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    console.log(formData, 'form data')
     try {
       const { response, json } = await createUserGearItem(formData, user.id)
-      if (response.status === 201) console.log(json)
-        dispatch()
+      if (response.status === 201) dispatch(setUserGear([...gearList, json]))
     } catch (error) {
       console.log(error)
     }

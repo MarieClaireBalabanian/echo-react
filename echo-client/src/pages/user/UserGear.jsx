@@ -21,7 +21,7 @@ const UserGear = () => {
     };
   
     useEffect(() => {
-      if (!gearList) fetchUserGear()
+      if (!gearList.length) fetchUserGear()
     }, []); 
 
 
@@ -29,7 +29,7 @@ const UserGear = () => {
     <div>
       <h1>My Gear</h1>
       {
-        gearList && <GearList gearList={gearList} />
+        gearList.length && <GearList gearList={gearList} />
       }
       <AddGearForm />
     </div>

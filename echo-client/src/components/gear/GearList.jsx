@@ -1,18 +1,19 @@
 import PropTypes from 'prop-types';
-import { Link } from "react-router-dom";
 import GearThumbnail from './GearThumbnail';
 
 const GearList = ({ gearList }) => {
+    console.log(gearList.length)
   return (
-      <ul>
+        gearList.length > 0 &&
+        <ul>
             { 
-                gearList && gearList.map((item, index) => (
+                gearList.map((item, index) => (
                     <li key={`item-${item.id}`}>
                         <GearThumbnail item={item} />
                     </li>
                 ))
             }
-      </ul>
+        </ul>
     )
 }
 
