@@ -1,6 +1,12 @@
 const express = require("express");
 const gearRouter = express.Router();
-const { createUserGearItem, getAllGearItems, getUserGearItems, deleteUserGearItem, deleteAllGearItems } = require("../controllers/gearItem");
+const {
+  createUserGearItem,
+  getAllGearItems,
+  getUserGearItems,
+  deleteUserGearItem,
+  deleteAllGearItems,
+} = require("../controllers/gearItem");
 
 // Gear
 gearRouter.get("/", getAllGearItems);

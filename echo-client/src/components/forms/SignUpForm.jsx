@@ -1,64 +1,66 @@
-import { useState } from 'react';
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import TypedInput from './TypedInput'
-import AddressAuto from './AddressAuto';
-import { createUser } from '../../api/user'
+import TypedInput from "./TypedInput";
+import AddressAuto from "./AddressAuto";
+import { createUser } from "../../api/user";
 
 const SignUpForm = () => {
   const navigate = useNavigate();
- 
+
   const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    username: '',
-    password: '',
-    coords: '',
-    location: ''
+    name: "",
+    email: "",
+    username: "",
+    password: "",
+    coords: "",
+    location: "",
   });
 
   const handleChange = (name, value) => {
-    setFormData(prevState => ({
+    setFormData((prevState) => ({
       ...prevState,
-      [name]: value
+      [name]: value,
     }));
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const { response, json } = await createUser(formData)
-      if (response.status === 201) navigate(`/user/${json.user.username}`)
+      const { response, json } = await createUser(formData);
+      if (response.status === 201) navigate(`/user/${json.user.username}`);
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
   };
 
   return (
     <div className="signup-form">
-      <form onSubmit={handleSubmit} className="border-with-padding">
+      <form
+        onSubmit={handleSubmit}
+        className="border-with-padding">
         <h2>Sign Up</h2>
-        <TypedInput 
+        <TypedInput
           type="text"
           label="Full Name"
           name="name"
           autocomplete="name"
           onChange={handleChange}
-          />
-        <TypedInput 
+        />
+        <TypedInput
           type="email"
           label="Email Address"
           name="email"
           autocomplete="email"
           onChange={handleChange}
         />
-        <TypedInput 
+        <TypedInput
           type="text"
           label="Username"
           name="username"
           autocomplete="username"
           onChange={handleChange}
         />
-        <TypedInput 
+        <TypedInput
           type="password"
           label="Password"
           name="password"

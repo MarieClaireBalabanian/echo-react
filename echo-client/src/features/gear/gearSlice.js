@@ -1,16 +1,16 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice } from "@reduxjs/toolkit";
 
 export const gearSlice = createSlice({
-  name: 'gear',
+  name: "gear",
   initialState: [],
   reducers: {
     setUserGear: (state, action) => {
-      return action.payload
+      return action.payload;
     },
   },
-})
+});
 
 // Action creators are generated for each case reducer function
-export const { setUserGear } = gearSlice.actions
+export const { setUserGear } = gearSlice.actions;
 
-export default gearSlice.reducer
+export default gearSlice.reducer;

@@ -1,19 +1,18 @@
 const echo_api = import.meta.env.VITE_API_URL;
 
-
 export const loginUser = async (formData) => {
   try {
     const response = await fetch(`${echo_api}/users/login/`, {
-      method: 'post',
-      headers: {'Content-Type':'application/json'},
-      body: JSON.stringify(formData)
+      method: "post",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(formData),
     });
 
-    console.log(response)
+    console.log(response);
     const json = await response.json();
-    return { response, json }
+    return { response, json };
   } catch (error) {
-      console.log(error)
+    console.log(error);
   }
 };
 
@@ -30,9 +29,9 @@ export const getUser = async (username) => {
 export const editUser = async (id, formData) => {
   try {
     const response = await fetch(`${echo_api}/users/${id}`, {
-      method: 'patch',
-      headers: {'Content-Type':'application/json'},
-      body: JSON.stringify(formData)
+      method: "patch",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(formData),
     });
     const user = await response.json();
     return { response, user };
@@ -43,8 +42,8 @@ export const editUser = async (id, formData) => {
 
 export const deleteUser = async (id) => {
   try {
-    const response = await fetch(`${echo_api}/users/${id}`,  {
-      method: 'delete',
+    const response = await fetch(`${echo_api}/users/${id}`, {
+      method: "delete",
     });
     const deleteStatus = await response.json();
     return { deleteStatus };
@@ -53,18 +52,16 @@ export const deleteUser = async (id) => {
   }
 };
 
-
 export const createUser = async (formData) => {
   try {
-      const response = await fetch(`${echo_api}/users`, {
-          method: 'post',
-          headers: {'Content-Type':'application/json'},
-          body: JSON.stringify(formData)
-      });
-      const json = await response.json()
-      return { response, json }
+    const response = await fetch(`${echo_api}/users`, {
+      method: "post",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(formData),
+    });
+    const json = await response.json();
+    return { response, json };
   } catch (error) {
     console.log(error);
   }
 };
-

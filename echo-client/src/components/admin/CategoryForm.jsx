@@ -1,28 +1,28 @@
-import { useState } from 'react';
+import { useState } from "react";
 
 const CategoryForm = () => {
   const [formData, setFormData] = useState({
-    catName: '',
+    catName: "",
   });
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData(prevState => ({
+    setFormData((prevState) => ({
       ...prevState,
-      [name]: value
+      [name]: value,
     }));
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await fetch('http://localhost:8080/user/login/', {
-        method: 'post',
-        headers: {'Content-Type':'application/json'},
-        body: JSON.stringify(formData)
+      await fetch("http://localhost:8080/user/login/", {
+        method: "post",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
       });
     } catch (error) {
-        console.log(error)
+      console.log(error);
     }
   };
 

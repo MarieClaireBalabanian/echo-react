@@ -6,7 +6,8 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-body, .App {
+body,
+.App {
   margin: 0;
   width: 100%;
   min-height: 100vh;
@@ -22,9 +23,7 @@ body, .App {
   padding: 100px 20px;
 }
 
-
 @media (prefers-color-scheme: light) {
-
 }
 
 .form-field {
@@ -33,25 +32,26 @@ body, .App {
 }
 
 label {
-  font-size: .8rem;
+  font-size: 0.8rem;
   color: blue;
   font-weight: medium;
   text-transform: uppercase;
-  margin-bottom: .2rem;
+  margin-bottom: 0.2rem;
   display: block;
 }
 
-input, select, textarea {
+input,
+select,
+textarea {
   border: 1px solid black;
 }
-
 
 .flex-wrapper {
   display: flex;
 }
 
-
-header, footer {
+header,
+footer {
   padding: 20px;
   background: navy;
   text-align: center;
@@ -68,7 +68,7 @@ button {
   background: teal;
   color: white;
   font-weight: bold;
-  border-radius: .4rem;
+  border-radius: 0.4rem;
 }
 
 .gear-thumbnail-actions button {
@@ -79,7 +79,6 @@ svg {
   height: auto;
 }
 
-
 .gear-thumbnail img {
   height: 200px;
   width: 200px;
@@ -89,5 +88,4 @@ svg {
 
 .gear-thumbnail .copy {
   margin: 15px 0;
-
 }

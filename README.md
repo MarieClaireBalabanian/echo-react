@@ -1,8 +1,8 @@
-# Echo  - work in progress
+# Echo - work in progress
 
 React, React Router, Redux Toolkit, MapBox, Node, Express, Sequelize, MySQL
 
-todo: 
+todo:
 
 User:
 JWT functionality

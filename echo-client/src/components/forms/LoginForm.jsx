@@ -1,45 +1,47 @@
-import { useState } from 'react';
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import TypedInput from './TypedInput'
-import { loginUser } from '../../api/user'
+import TypedInput from "./TypedInput";
+import { loginUser } from "../../api/user";
 
 const LoginForm = () => {
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
-    email: '',
-    password: '',
+    email: "",
+    password: "",
   });
 
   const handleChange = (name, value) => {
-    setFormData(prevState => ({
+    setFormData((prevState) => ({
       ...prevState,
-      [name]: value
+      [name]: value,
     }));
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const { response, json } = await loginUser(formData)
-      if (response.status === 200) navigate(`/user/${json.user.username}`)
+      const { response, json } = await loginUser(formData);
+      if (response.status === 200) navigate(`/user/${json.user.username}`);
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
   };
 
   return (
     <div className="login-form">
-      <form onSubmit={handleSubmit} className="border-with-padding">
+      <form
+        onSubmit={handleSubmit}
+        className="border-with-padding">
         <h2>Log In</h2>
-        <TypedInput 
+        <TypedInput
           type="email"
           label="Email Address"
           name="email"
           autocomplete="email"
           onChange={handleChange}
         />
-        <TypedInput 
+        <TypedInput
           type="password"
           label="Password"
           name="password"
