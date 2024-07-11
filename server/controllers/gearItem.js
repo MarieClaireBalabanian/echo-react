@@ -20,7 +20,7 @@ const createUserGearItem = async (req, res) => {
             });
             await gearItem.addCategories(categories);
         }
-        res.status(201).json({gearItem: gearItem, message:"GearItem Item added!"});
+        res.status(201).json(gearItem);
     }
     catch {
         res.status(500).json({message:"Error creating gear item"});
@@ -80,6 +80,6 @@ const deleteAllGearItems = async (req, res) => {
     catch(error) {
         res.status(500).json({message:"Internal Error", error: error});
     }
- };
+};
 
 module.exports = { createUserGearItem, deleteUserGearItem, getAllGearItems, getUserGearItems, deleteAllGearItems };
