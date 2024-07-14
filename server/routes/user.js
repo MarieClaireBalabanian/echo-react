@@ -8,6 +8,7 @@ const {
   editUser,
   deleteUser,
   deleteAllUsers,
+  verifyUserToken
 } = require("../controllers/user");
 
 // Users
@@ -16,7 +17,8 @@ userRouter.get("/", getAllUsers);
 userRouter.delete("/", deleteAllUsers);
 
 userRouter.post("/login", loginUser);
-userRouter.get("/:username", getUser);
+userRouter.post("/token", verifyUserToken)
+userRouter.get("/:username/:token?", getUser);
 userRouter.patch("/:id", editUser);
 userRouter.delete("/:id", deleteUser);
 

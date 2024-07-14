@@ -27,7 +27,10 @@ const SignUpForm = () => {
     e.preventDefault();
     try {
       const { response, json } = await createUser(formData);
-      if (response.status === 201) navigate(`/user/${json.user.username}`);
+      if (response.status === 201) {
+        localStorage.setItem("jwttoken", json.token);
+        navigate(`/user/${json.user.username}`);
+      }
     } catch (error) {
       console.log(error);
     }

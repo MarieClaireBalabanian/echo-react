@@ -1,6 +1,7 @@
 const { User, sequelize } = require("../models/User");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+require('dotenv').config();
 
 const createUser = async (req, res) => {
   try {
@@ -45,9 +46,34 @@ const loginUser = async (req, res) => {
     const passwordMatch = await bcrypt.compare(req.body.password, user.password);
     if (!passwordMatch) return res.status(401).json({ error: "Invalid password" });
     // create jwt token
-    const token = jwt.sign({ email: user.email }, "secret");
-    if (token) res.status(200).json({ user: user });
+    const token = jwt.sign({ username: user.username }, process.env.JWT_SECRET);
+    if (token) res.status(200).json({ user: user, token: token });
     else res.status(500).json({ error: "Error setting jwtoken" });
+  } catch (error) {
+    res.status(500).json({ message: "Internal Error", error: error });
+  }
+};
+ 
+const verifyUserToken = async (req, res) => {
+  try {
+
+  const secretKey = process.env.JWT_SECRET
+  const token  = req.body.token
+
+  const ver = jwt.verify(token,secretKey); // Log payload object in terminal
+
+    const dec = jwt.decode(token)
+    // // does account with email exist
+    // const user = await User.findOne({
+    //   where: { email: req.body.email },
+    // });
+    // // create jwt token
+    // const token = jwt.sign({ username: user.username }, process.env.JWT_SECRET);
+    res.status(200).json({ ver: ver, dec: dec });
+    // else res.status(500).json({ error: "Error setting jwtoken" });
+
+
+
   } catch (error) {
     res.status(500).json({ message: "Internal Error", error: error });
   }
@@ -123,4 +149,5 @@ module.exports = {
   editUser,
   deleteUser,
   deleteAllUsers,
+  verifyUserToken
 };

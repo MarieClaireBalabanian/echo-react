@@ -22,7 +22,10 @@ const LoginForm = () => {
     e.preventDefault();
     try {
       const { response, json } = await loginUser(formData);
-      if (response.status === 200) navigate(`/user/${json.user.username}`);
+      if (response.status === 200) {
+        localStorage.setItem("jwttoken", json.token);
+        navigate(`/user/${json.user.username}`);
+      }
     } catch (error) {
       console.log(error);
     }

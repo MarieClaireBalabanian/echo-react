@@ -1,8 +1,11 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Routes, Route } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setCategories } from "./features/categories/categoriesSlice";
-
+// import { setUserAuthStatus } from "./features/user/authSlice";
+// import { setUserProfile } from "./features/user/userSlice";
+import { verifyUserToken } from "./api/user";
+ 
 import Home from "./pages/Home";
 import UserProfile from "./pages/user/UserProfile";
 import UserGear from "./pages/user/UserGear";
@@ -18,6 +21,18 @@ function App() {
   const echo_api = import.meta.env.VITE_API_URL;
   const dispatch = useDispatch();
 
+  const isLoggedIn = useSelector((state) => state.auth);
+  const [ isLoading, setIsLoading ] = useState(false);
+  
+  const fetchUserByToken = async (token) => {
+    try {
+      const user = await verifyUserToken(token);
+      // dispatch(setUserProfile(user));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const fetchCategories = async () => {
     try {
       const response = await fetch(`${echo_api}/categories`);
@@ -29,6 +44,14 @@ function App() {
   };
 
   useEffect(() => {
+    const token = localStorage.getItem("jwttoken");
+    if (token) {
+      fetchUserByToken(token);
+      // dispatch(setUserProfile(user));
+      // dispatch(setUserAuthStatus(true));
+    }
+
+    setIsLoading(false);
     fetchCategories();
   }, []);
 
@@ -37,26 +60,30 @@ function App() {
       <ScrollToTop />
       <Header />
       <div className="page">
-        <main>
-          <Routes>
-            <Route
-              path="/"
-              element={<Home />}
-            />
-            <Route
-              path="/user/:username"
-              element={<UserLayout />}>
+        {/* { isLoading ? 
+          <h2>Loading</h2>
+          : */}
+          <main>
+            <Routes>
               <Route
-                index
-                element={<UserProfile />}
+                path="/"
+                element={<Home />}
               />
               <Route
-                path="mygear"
-                element={<UserGear />}
-              />
-            </Route>
-          </Routes>
-        </main>
+                path="/user/:username"
+                element={ isLoggedIn ? <UserLayout /> : <Home />}>
+                <Route
+                  index
+                  element={<UserProfile />}
+                />
+                <Route
+                  path="mygear"
+                  element={<UserGear />}
+                />
+              </Route>
+            </Routes>
+          </main>
+        {/* } */}
       </div>
       <Footer />
     </div>

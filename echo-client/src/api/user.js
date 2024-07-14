@@ -16,6 +16,22 @@ export const loginUser = async (formData) => {
   }
 };
 
+export const verifyUserToken = async (token) => {
+  try {
+    const response = await fetch(`${echo_api}/users/token/`, {
+      method: "post",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({token: token}),
+    });
+    console.log(response);
+    const json = await response.json();
+    console.log(json);
+    return { response, json };
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 export const getUser = async (username) => {
   try {
     const response = await fetch(`${echo_api}/users/${username}`);
