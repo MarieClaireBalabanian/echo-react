@@ -2,7 +2,7 @@ const echo_api = import.meta.env.VITE_API_URL;
 
 export const loginUser = async (formData) => {
   try {
-    const response = await fetch(`${echo_api}/users/login/`, {
+    const response = await fetch(`${echo_api}/users/login`, {
       method: "post",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(formData),
@@ -18,10 +18,10 @@ export const loginUser = async (formData) => {
 
 export const verifyUserToken = async (token) => {
   try {
-    const response = await fetch(`${echo_api}/users/token/`, {
+    const response = await fetch(`${echo_api}/users/token`, {
       method: "post",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({token: token}),
+      body: JSON.stringify({ token: token }),
     });
     console.log(response);
     const json = await response.json();
@@ -32,9 +32,9 @@ export const verifyUserToken = async (token) => {
   }
 };
 
-export const getUser = async (username) => {
+export const getUser = async (id) => {
   try {
-    const response = await fetch(`${echo_api}/users/${username}`);
+    const response = await fetch(`${echo_api}/users/${id}`);
     const user = await response.json();
     return user;
   } catch (error) {

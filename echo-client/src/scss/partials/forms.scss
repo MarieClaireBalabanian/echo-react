@@ -1,0 +1,46 @@
+form {
+  .form-field {
+    margin-bottom: 1.5rem;
+  }
+
+  label {
+    font-size: 0.9rem;
+    font-weight: medium;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+    display: block;
+    letter-spacing: 0.1em;
+    font-weight: 600;
+  }
+
+  input,
+  select,
+  textarea {
+    background: white;
+    font-size: 1rem;
+    padding: 5px 10px;
+    color: black;
+    width: 100%;
+  }
+
+  .address-autofill {
+    margin-bottom: 1.5rem;
+  }
+}
+
+.form-switcher {
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  p {
+    margin-right: 20px;
+    padding: 5px;
+  }
+}
+
+.centered-form {
+  max-width: 600px;
+  margin: 0 auto;
+}

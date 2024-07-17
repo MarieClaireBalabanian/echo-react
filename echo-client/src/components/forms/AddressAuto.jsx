@@ -14,8 +14,9 @@ const AddressAuto = ({ onChange }) => {
     <div className="address-autofill">
       <AddressAutofill
         accessToken={token}
-        onRetrieve={handleRetrieve}>
-        <label htmlFor="address">Address</label>
+        onRetrieve={handleRetrieve}
+        required>
+        <label htmlFor="address">Address*</label>
         <input
           name="address"
           aria-required="true"

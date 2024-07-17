@@ -1,0 +1,28 @@
+button,
+.button {
+  padding: 10px 10px;
+  background: teal;
+  color: white;
+  font-weight: bold;
+  border-radius: 0.4rem;
+}
+
+.gear-thumbnail-actions button {
+  margin-right: 10px;
+
+  svg {
+    width: 20px;
+    height: auto;
+  }
+}
+
+.gear-thumbnail img {
+  height: 200px;
+  width: 200px;
+  object-fit: contain;
+  object-position: left bottom;
+}
+
+.gear-thumbnail .copy {
+  margin: 15px 0;
+}
