@@ -2,7 +2,6 @@ import PropTypes from "prop-types";
 import GearThumbnail from "./GearThumbnail";
 
 const GearList = ({ gearList }) => {
-  console.log(gearList.length);
   return (
     gearList.length > 0 && (
       <ul>

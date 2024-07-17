@@ -56,9 +56,9 @@ const deleteUserGearItem = async (req, res) => {
 
 const getAllGearItems = async (req, res) => {
   try {
-    const gearItem = await GearItem.findAll();
+    const gear = await GearItem.findAll();
     res.status(200).json({
-      gearItem: gearItem,
+      gear: gear,
       message: "All gear retrieved",
     });
   } catch {

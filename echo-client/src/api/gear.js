@@ -36,3 +36,16 @@ export const deleteUserGearItem = async (gearId) => {
     console.log(error);
   }
 };
+
+
+export const getAllGearItems = async (userId) => {
+  try {
+    let url = `${echo_api}/gear`;
+    if (userId) url +=  `?exclude=userId`
+    const response = await fetch(url);
+    const json = await response.json();
+    return { response, json };
+  } catch (error) {
+    console.log(error);
+  }
+};

@@ -7,6 +7,7 @@ import { setUserProfile } from "./features/user/userSlice";
 import { verifyUserToken } from "./api/user";
 
 import Home from "./pages/Home";
+import GearSearch from "./pages/gear/GearSearch";
 import UserProfile from "./pages/user/UserProfile";
 import UserGear from "./pages/user/UserGear";
 import UserLayout from "./layouts/UserLayout";
@@ -26,7 +27,7 @@ function App() {
 
   const fetchUserByToken = async (token) => {
     try {
-      const { response, json } = await verifyUserToken(token);
+      const { response, json} = await verifyUserToken(token);
       if (response.status === 200) {
         dispatch(setUserProfile(json));
         dispatch(setUserAuthStatus(true));
@@ -49,8 +50,8 @@ function App() {
 
   useEffect(() => {
     const token = localStorage.getItem("jwttoken");
-    if (token) fetchUserByToken(token);
-    else setIsLoading(false);
+    if (token) fetchUserByToken(token)
+    else setIsLoading(false) 
     fetchCategories();
   }, []);
 
@@ -59,14 +60,18 @@ function App() {
       <ScrollToTop />
       <Header />
       <div className="page flex-column">
-        {isLoading ? (
+        { isLoading ? 
           <h2>Loading</h2>
-        ) : (
+          :
           <main>
             <Routes>
               <Route
                 path="/"
                 element={<Home />}
+              />
+              <Route
+                path="/gear"
+                element={<GearSearch />}
               />
               <Route
                 path="/user/:username"
@@ -82,7 +87,7 @@ function App() {
               </Route>
             </Routes>
           </main>
-        )}
+        }
       </div>
       <Footer />
     </div>

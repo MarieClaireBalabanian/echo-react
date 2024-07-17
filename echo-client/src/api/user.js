@@ -7,8 +7,6 @@ export const loginUser = async (formData) => {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(formData),
     });
-
-    console.log(response);
     const json = await response.json();
     return { response, json };
   } catch (error) {
@@ -23,9 +21,7 @@ export const verifyUserToken = async (token) => {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ token: token }),
     });
-    console.log(response);
     const json = await response.json();
-    console.log(json);
     return { response, json };
   } catch (error) {
     console.log(error);
