@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 import TypedInput from "./TypedInput";
-import Select from "./Select";
+import Checkboxes from "./Checkboxes";
 import TextArea from "./TextArea";
 
 import { useDispatch, useSelector } from "react-redux";
@@ -59,7 +59,7 @@ const AddGearForm = () => {
         autocomplete="off"
         onChange={handleChange}
       />
-      <Select
+      <Checkboxes
         name="categories"
         label="Categories"
         options={gearCategories}

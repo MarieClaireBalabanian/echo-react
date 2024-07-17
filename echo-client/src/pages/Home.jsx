@@ -6,6 +6,7 @@ import { useSelector } from "react-redux";
 const Home = () => {
   const [view, setView] = useState("login");
   const isLoggedIn = useSelector((state) => state.auth);
+
   return (
     <>
       <img

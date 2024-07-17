@@ -46,3 +46,16 @@
   width: 100%;
   object-fit: cover;
 }
+
+
+.grid {
+  @media (min-width: 768px) {
+    display: grid;
+
+    @for $i from 1 through 5 {
+      &.grid-#{$i} {
+          grid-template-columns: repeat($i, minmax(0, #{$i}fr));
+      }
+  }
+  }
+}

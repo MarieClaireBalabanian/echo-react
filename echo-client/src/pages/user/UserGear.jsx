@@ -8,20 +8,20 @@ import { getUserGearItems } from "../../api/gear";
 const UserGear = () => {
   const userId = useSelector((state) => state.user.id);
   const gearList = useSelector((state) => state.gear);
+  console.log(gearList)
   const dispatch = useDispatch();
-
-  const fetchUserGear = async () => {
-    try {
-      const res = await getUserGearItems(userId);
-      dispatch(setUserGear(res.gear));
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
+  
   useEffect(() => {
-    if (!gearList.length) fetchUserGear();
-  }, []);
+    const fetchUserGear = async () => {
+      try {
+        const res = await getUserGearItems(userId);
+        dispatch(setUserGear(res.gear));
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchUserGear();
+  }, [dispatch, userId]);
 
   return (
     <div>
