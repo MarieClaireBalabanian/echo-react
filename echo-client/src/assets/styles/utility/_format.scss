@@ -12,8 +12,8 @@
 
 .border-with-padding {
   padding: 20px;
-  border: 1px solid gray;
-  border-radius: 20px;
+  border: 1px solid $charcoal;
+  border-radius: 5px;
 }
 
 .flex-column {
@@ -38,19 +38,10 @@
   position: relative;
 }
 
-.absolute-cover {
-  position: absolute;
-  z-index: 1;
-  inset: 0;
-  height: 100%;
-  width: 100%;
-  object-fit: cover;
-}
-
-
 .grid {
   @media (min-width: 768px) {
     display: grid;
+    grid-gap: 2vw;
 
     @for $i from 1 through 5 {
       &.grid-#{$i} {

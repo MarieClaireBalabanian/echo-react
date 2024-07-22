@@ -1,12 +1,11 @@
 import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { setUserGear } from "../../features/gear/gearSlice";
+import { createUserGearItem } from "../../api/gear";
 
 import TypedInput from "./TypedInput";
 import Checkboxes from "./Checkboxes";
 import TextArea from "./TextArea";
-
-import { useDispatch, useSelector } from "react-redux";
-import { setUserGear } from "../../features/gear/gearSlice";
-import { createUserGearItem } from "../../api/gear";
 
 const AddGearForm = () => {
   const dispatch = useDispatch();
@@ -21,6 +20,7 @@ const AddGearForm = () => {
     description: "",
     categories: [],
     location: user.location,
+    coords: user.coords
   });
 
   const handleChange = (name, value) => {
@@ -43,7 +43,7 @@ const AddGearForm = () => {
   return (
     <form
       onSubmit={handleSubmit}
-      className="border-with-padding">
+      className="centered-form border-with-padding">
       <h2>Add Gear</h2>
       <TypedInput
         type="text"
@@ -70,7 +70,7 @@ const AddGearForm = () => {
         name="description"
         onChange={handleChange}
       />
-      <button type="submit">Submit</button>
+      <button className="button lazuli" type="submit">Submit</button>
     </form>
   );
 };

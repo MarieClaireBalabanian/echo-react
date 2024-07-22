@@ -1,9 +1,10 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import TypedInput from "./TypedInput";
 import { loginUser } from "../../api/user";
 import { setUserProfile } from "../../features/user/userSlice";
+
+import TypedInput from "./TypedInput";
 
 const LoginForm = () => {
   const navigate = useNavigate();
@@ -55,7 +56,7 @@ const LoginForm = () => {
           autocomplete="password"
           onChange={handleChange}
         />
-        <button type="submit">Submit</button>
+        <button className="button lazuli" type="submit">Submit</button>
       </form>
     </div>
   );

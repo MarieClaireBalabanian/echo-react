@@ -1,0 +1,21 @@
+.global-header {
+  background: $charcoal;
+  color: $white;
+  padding: 10px 0;
+
+  .container {
+    align-items: center;
+  }
+
+  .logo {
+    width: 100px;
+    display: inline-block;
+    img {
+      width: 100%;
+    }
+  }
+
+  .button + .button {
+    margin-left: 20px;
+  }
+}

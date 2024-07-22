@@ -40,7 +40,7 @@ const CategoryForm = () => {
           required
         />
       </div>
-      <button type="submit">Create Category</button>
+      <button className="button lazuli" type="submit">Create Category</button>
     </form>
   );
 };

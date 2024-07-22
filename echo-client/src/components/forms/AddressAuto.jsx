@@ -1,5 +1,5 @@
-import { AddressAutofill } from "@mapbox/search-js-react";
 import PropTypes from "prop-types";
+import { AddressAutofill } from "@mapbox/search-js-react";
 
 const AddressAuto = ({ onChange }) => {
   const token = import.meta.env.VITE_MAPBOX_TOKEN;

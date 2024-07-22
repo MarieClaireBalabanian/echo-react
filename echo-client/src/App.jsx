@@ -7,16 +7,17 @@ import { setUserProfile } from "./features/user/userSlice";
 import { verifyUserToken } from "./api/user";
 
 import Home from "./pages/Home";
+import Login from "./pages/Login";
+import Signup from "./pages/Signup";
+
 import GearSearch from "./pages/gear/GearSearch";
 import UserProfile from "./pages/user/UserProfile";
 import UserGear from "./pages/user/UserGear";
 import UserLayout from "./layouts/UserLayout";
-import Header from "./components/global/Header/Header";
-import Footer from "./components/global/Footer";
+import Header from "./components/GlobalHeader";
+import Footer from "./components/GlobalFooter";
 import ScrollToTop from "./utilities/scrollToTop";
 
-import "./scss/styles.scss";
-import "./index.css";
 
 function App() {
   const echo_api = import.meta.env.VITE_API_URL;
@@ -68,6 +69,14 @@ function App() {
               <Route
                 path="/"
                 element={<Home />}
+              />
+              <Route
+                path="/login"
+                element={<Login />}
+              />
+              <Route
+                path="/signup"
+                element={<Signup />}
               />
               <Route
                 path="/gear"

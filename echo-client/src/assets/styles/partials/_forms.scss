@@ -4,8 +4,7 @@ form {
   }
 
   label {
-    font-size: 0.9rem;
-    font-weight: medium;
+    font-size: .9rem;
     text-transform: uppercase;
     margin-bottom: 0.5rem;
     display: block;
@@ -13,19 +12,37 @@ form {
     font-weight: 600;
   }
 
-  input,
+  input:not([type="checkbox"]),
   select,
   textarea {
-    background: white;
+    border: 1px solid $charcoal;
     font-size: 1rem;
     padding: 5px 10px;
-    color: black;
     width: 100%;
   }
 
   .address-autofill {
     margin-bottom: 1.5rem;
   }
+}
+
+.checkboxes {
+  border: 1px solid $charcoal;
+  padding: 5px 10px;
+}
+
+.checkbox-wrapper {
+  display: flex;
+
+  align-items: center;
+  label {
+    margin: 0 0 0 10px;
+
+  }
+}
+
+legend {
+  @extend label;
 }
 
 .form-switcher {
@@ -41,6 +58,7 @@ form {
 }
 
 .centered-form {
+  width: 100%;
   max-width: 600px;
   margin: 0 auto;
 }

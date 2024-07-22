@@ -17,10 +17,14 @@ const GearItem = sequelize.define("GearItem", {
     allowNull: false,
   },
   description: {
-    type: DataTypes.STRING,
+    type: DataTypes.TEXT,
     allowNull: false,
   },
   location: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  coords: {
     type: DataTypes.STRING,
     allowNull: false,
   },

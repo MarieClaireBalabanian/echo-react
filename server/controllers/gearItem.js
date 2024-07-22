@@ -1,4 +1,5 @@
 const { GearItem, sequelize } = require("../models/GearItem");
+const { Op } = require("sequelize");
 const { User } = require("../models/User");
 const { Category } = require("../models/Category");
 
@@ -12,6 +13,7 @@ const createUserGearItem = async (req, res) => {
       makeModel: req.body.makeModel,
       description: req.body.description,
       location: req.body.location,
+      coords: req.body.coords,
       UserId: user.id,
     });
     if (req.body.categories && req.body.categories.length > 0) {
@@ -56,7 +58,13 @@ const deleteUserGearItem = async (req, res) => {
 
 const getAllGearItems = async (req, res) => {
   try {
-    const gear = await GearItem.findAll();
+    const whereStatement = {};
+    if (req.query.exclude) {
+      whereStatement.UserId = { [Op.ne]: req.query.exclude }
+    }
+    const gear = await GearItem.findAll({
+      where: whereStatement
+    });
     res.status(200).json({
       gear: gear,
       message: "All gear retrieved",

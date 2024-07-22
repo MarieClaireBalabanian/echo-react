@@ -1,11 +1,19 @@
 import PropTypes from "prop-types";
-import { Link } from "react-router-dom";
+import { Link, useParams, useLocation } from "react-router-dom";
 import GearThumbnailActions from "./GearThumbnailActions";
 
+
 const GearThumbnail = ({ item, featured = false }) => {
+  const params = useParams();
+  const location = useLocation();
+  const { hash, pathname, search } = location;
+  console.log({location})
+  // const route = useRoute();
+  console.log(params)
+
   return (
-    <div className={"gear-thumbnail border-with-padding" + (featured ? "featured" : "")}>
-      <img src="https://picsum.photos/200/300" />
+    <div className={"gear-thumbnail" + (featured ? "featured" : "")}>
+      <img src="/wave.png" />
       <div className="copy">
         <h3>{item.title}</h3>
         <h4>{item.makeModel}</h4>

@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { createUser } from "../../api/user";
+
 import TypedInput from "./TypedInput";
 import AddressAuto from "./AddressAuto";
-import { createUser } from "../../api/user";
 
 const SignUpForm = () => {
   const navigate = useNavigate();
@@ -71,7 +72,7 @@ const SignUpForm = () => {
           onChange={handleChange}
         />
         <AddressAuto onChange={handleChange} />
-        <button type="submit">Submit</button>
+        <button className="button lazuli" type="submit">Submit</button>
       </form>
     </div>
   );

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import GearList from "../../components/gear/GearList";
+import GearList from "../../components/GearList";
 import { useSelector } from "react-redux";
 
 import { getAllGearItems } from "../../api/gear";

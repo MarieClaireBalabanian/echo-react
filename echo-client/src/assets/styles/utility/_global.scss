@@ -1,0 +1,21 @@
+
+
+.App {
+  margin: 0;
+  width: 100%;
+  min-height: 100vh;
+}
+
+.page {
+  flex-grow: 1;
+}
+
+main {
+  flex-grow: 1;
+  position: relative;
+}
+
+.main-content {
+  flex-grow: 1;
+}
+

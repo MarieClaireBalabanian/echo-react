@@ -1,0 +1,17 @@
+.block-hero {
+  background-color: $charcoal;
+  position: relative;
+  padding: 80px 0;
+  color: $white;
+
+  .container {
+    display: flex;
+  }
+
+  .global-image {
+    width: 50%;
+  }
+  img {
+    filter: invert(1) brightness(1000%);
+  }
+}

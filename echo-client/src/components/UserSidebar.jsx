@@ -6,7 +6,7 @@ const Sidebar = () => {
 
   return (
     username && (
-      <div className="sidebar-nav">
+      <div className="user-sidebar">
         <nav>
           <ul className="border-with-padding">
             <li>

@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import { useSelector, useDispatch } from "react-redux";
-import { setUserGear } from "../../features/gear/gearSlice";
-import { deleteUserGearItem } from "../../api/gear";
+import { setUserGear } from "../features/gear/gearSlice";
+import { deleteUserGearItem } from "../api/gear";
 
 const GearThumbnailActions = ({ gearId, title }) => {
   const belongsToUser = false;
