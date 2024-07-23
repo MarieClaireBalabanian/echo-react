@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
+import '../assets/styles/components/_UserSidebar.scss';
 
 const Sidebar = () => {
   const { username } = useParams();
@@ -8,7 +9,7 @@ const Sidebar = () => {
     username && (
       <div className="user-sidebar">
         <nav>
-          <ul className="border-with-padding">
+          <ul>
             <li>
               <Link to={`/user/${username}`}>My Profile</Link>
             </li>

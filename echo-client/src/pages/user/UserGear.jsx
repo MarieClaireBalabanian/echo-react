@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import GearList from "../../components/GearList";
 import AddGearForm from "../../components/forms/AddGearForm";
 import { useDispatch, useSelector } from "react-redux";
@@ -9,6 +9,10 @@ const UserGear = () => {
   const userId = useSelector((state) => state.user.id);
   const gearList = useSelector((state) => state.gear);
   const dispatch = useDispatch();
+
+  const [view, setView] = useState('GearList');
+
+
 
   useEffect(() => {
     const fetchUserGear = async () => {
@@ -25,8 +29,19 @@ const UserGear = () => {
   return (
     <div>
       <h1>My Gear</h1>
-      {gearList.length > 0 && <GearList gearList={gearList} />}
-      <AddGearForm />
+      { view === 'GearList' && <button className="button lazuli" onClick={() => setView('AddGearForm')}>Add Gear</button> }
+      { view === 'AddGearForm' && 
+         <div>
+          <button className="button orange" onClick={() => setView('GearList')}>Cancel</button>
+          <AddGearForm /> 
+         </div>
+      }
+
+      { gearList.length > 0 ?
+        <GearList gearList={gearList}  />
+        :
+        <h2>You have no gear!</h2>
+      }
     </div>
   );
 };

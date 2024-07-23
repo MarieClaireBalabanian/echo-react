@@ -16,7 +16,6 @@ const Home = () => {
   return (
     <>
       <BlockHero data={ heroData }/>
-        
     </>
   );
 };

@@ -25,7 +25,7 @@ const Checkboxes = ({ name, label, options, required = true, onChange }) => {
         {label}
         {required && <span aria-hidden="true">*</span>}
       </legend>
-      <div className="checkboxes grid grid-2">
+      <div className="checkboxes grid grid-4">
         {options.length > 0 && options.map((option, index) => (
         <div className="checkbox-wrapper" key={`select-${name}-${index}`}>
           <input

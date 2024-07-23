@@ -1,4 +1,3 @@
-button,
 .button {
   padding: 10px 10px;
   color: $white;
@@ -18,22 +17,3 @@ button,
   }
 }
 
-.gear-thumbnail-actions button {
-  margin-right: 10px;
-
-  svg {
-    width: 20px;
-    height: auto;
-  }
-}
-
-.gear-thumbnail img {
-  height: 200px;
-  width: 100%;
-  object-fit: cover;
-  object-position: left bottom;
-}
-
-.gear-thumbnail .copy {
-  margin: 15px 0;
-}

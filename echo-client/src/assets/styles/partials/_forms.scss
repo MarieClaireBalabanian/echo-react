@@ -1,6 +1,8 @@
 form {
+  padding: 40px 0;
   .form-field {
     margin-bottom: 1.5rem;
+    position: relative;
   }
 
   label {
@@ -15,7 +17,7 @@ form {
   input:not([type="checkbox"]),
   select,
   textarea {
-    border: 1px solid $charcoal;
+    border-bottom: 1px solid $charcoal;
     font-size: 1rem;
     padding: 5px 10px;
     width: 100%;
@@ -27,7 +29,6 @@ form {
 }
 
 .checkboxes {
-  border: 1px solid $charcoal;
   padding: 5px 10px;
 }
 

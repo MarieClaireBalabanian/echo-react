@@ -42,8 +42,7 @@ const AddGearForm = () => {
 
   return (
     <form
-      onSubmit={handleSubmit}
-      className="centered-form border-with-padding">
+      onSubmit={handleSubmit}>
       <h2>Add Gear</h2>
       <TypedInput
         type="text"

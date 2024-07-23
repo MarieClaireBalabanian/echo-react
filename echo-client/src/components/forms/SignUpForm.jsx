@@ -40,8 +40,7 @@ const SignUpForm = () => {
   return (
     <div className="signup-form">
       <form
-        onSubmit={handleSubmit}
-        className="border-with-padding">
+        onSubmit={handleSubmit}>
         <h2>Sign Up</h2>
         <TypedInput
           type="text"

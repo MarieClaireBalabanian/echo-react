@@ -1,0 +1,12 @@
+.user-sidebar {
+
+  ul {
+    padding: 50px 25px 10px;
+    display: flex;
+    justify-content: space-between;
+    font-weight: 500;
+    text-transform: uppercase;
+    border-bottom: 1px solid $charcoal;
+    margin-bottom: 3.5rem;
+  }
+}

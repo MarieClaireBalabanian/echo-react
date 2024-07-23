@@ -1,0 +1,41 @@
+.gear-thumbnail {
+  background: white;
+  filter: drop-shadow(0 0 0.65rem lightgray);
+
+
+  .gear-thumbnail-inner {
+    border-radius: 10px;
+    overflow: hidden;
+  }
+
+
+  img {
+    height: 200px;
+    width: 100%;
+    object-fit: cover;
+    object-position: left bottom;
+  } 
+  
+  .copy {
+    padding: 20px;
+  }
+
+  .gear-thumbnail-actions {
+    display: flex;
+    justify-content: flex-end;
+    button {
+      display: flex;
+      flex-direction: column;
+      background: $lazuli;
+      width: 30px;
+      height: 30px;
+      margin-left: 15px;
+    }
+
+    svg {
+      stroke: $white;
+      width: 20px;
+      margin: auto;
+    }
+  }
+}

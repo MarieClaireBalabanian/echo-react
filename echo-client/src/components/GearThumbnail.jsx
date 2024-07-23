@@ -1,6 +1,7 @@
 import PropTypes from "prop-types";
 import { Link, useParams, useLocation } from "react-router-dom";
 import GearThumbnailActions from "./GearThumbnailActions";
+import '../assets/styles/components/_GearThumbnail.scss';
 
 
 const GearThumbnail = ({ item, featured = false }) => {
@@ -19,11 +20,11 @@ const GearThumbnail = ({ item, featured = false }) => {
         <h4>{item.makeModel}</h4>
         <p>{item.location}</p>
         {featured && <p>{item.description}</p>}
+        <GearThumbnailActions
+          gearId={item.id}
+          title={item.title}
+        />
       </div>
-      <GearThumbnailActions
-        gearId={item.id}
-        title={item.title}
-      />
     </div>
   );
 };

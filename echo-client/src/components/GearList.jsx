@@ -4,7 +4,7 @@ import GearThumbnail from "./GearThumbnail";
 const GearList = ({ gearList }) => {
   return (
     gearList.length > 0 && (
-      <ul>
+      <ul className="grid grid-3">
         {gearList.map((item, index) => (
           <li key={`item-${item.id}`}>
             <GearThumbnail item={item} />

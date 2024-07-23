@@ -24,7 +24,7 @@ const GearSearch = () => {
   }, []);
 
   return (
-    <div className="container grid grid-3">
+    <div className="container">
       {gearList ? <GearList gearList={gearList} /> : <h1>No results found</h1>}
     </div>
   );

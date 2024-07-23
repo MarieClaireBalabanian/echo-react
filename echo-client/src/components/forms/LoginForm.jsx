@@ -39,8 +39,7 @@ const LoginForm = () => {
   return (
     <div className="login-form">
       <form
-        onSubmit={handleSubmit}
-        className="border-with-padding">
+        onSubmit={handleSubmit}>
         <h2>Log In</h2>
         <TypedInput
           type="email"

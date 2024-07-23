@@ -4,7 +4,8 @@ import GlobalImage from "./GlobalImage"
 import '../assets/styles/components/_GlobalHeader.scss';
 
 const Header = () => {
-  const isLoggedIn = useSelector((state) => state.auth); 
+  const isLoggedIn = useSelector((state) => state.auth);
+  const username = useSelector((state) => state.user?.username);
 
   return (
     <header className="global-header">
@@ -15,10 +16,18 @@ const Header = () => {
           </Link>
         </div>
         <div>
-          {isLoggedIn.toString()}
           <Link to="/gear">Find Gear</Link>
-          <Link className="button yellow" to="/login">Login</Link>
-          <Link className="button orange" to="/signup">Join</Link>
+          {isLoggedIn && username ? 
+            <div>
+              <Link className="button yellow" to={`/user/${username}`}>Account</Link>
+              <Link className="button orange" to="/signout">Sign Out</Link>
+            </div>
+            :   
+            <div>
+              <Link className="button yellow" to="/login">Log In</Link>
+              <Link className="button orange" to="/signup">Join</Link>
+            </div>
+          }
         </div>
       </div>
     </header>
