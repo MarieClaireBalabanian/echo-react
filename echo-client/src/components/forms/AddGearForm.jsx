@@ -14,6 +14,12 @@ const AddGearForm = () => {
   const user = useSelector((state) => state.user);
   const gearList = useSelector((state) => state.gear);
 
+  const [showForm, setShowForm] = useState(false);
+
+  const toggleShowForm = () => {
+    setShowForm(!showForm)
+  }
+
   const [formData, setFormData] = useState({
     title: "",
     makeModel: "",
@@ -22,7 +28,7 @@ const AddGearForm = () => {
     location: user.location,
     coords: user.coords
   });
-
+  
   const handleChange = (name, value) => {
     setFormData((prevState) => ({
       ...prevState,
@@ -41,36 +47,42 @@ const AddGearForm = () => {
   };
 
   return (
-    <form
-      onSubmit={handleSubmit}>
-      <h2>Add Gear</h2>
-      <TypedInput
-        type="text"
-        label="Title"
-        name="title"
-        autocomplete="off"
-        onChange={handleChange}
-      />
-      <TypedInput
-        type="text"
-        label="Make & Model"
-        name="makeModel"
-        autocomplete="off"
-        onChange={handleChange}
-      />
-      <Checkboxes
-        name="categories"
-        label="Categories"
-        options={gearCategories}
-        onChange={handleChange}
-      />
-      <TextArea
-        label="Description"
-        name="description"
-        onChange={handleChange}
-      />
-      <button className="button lazuli" type="submit">Submit</button>
-    </form>
+    <div className="form-add-gear">
+      <button className={`button ${showForm ? 'orange' : 'lazuli'}`} 
+        onClick={toggleShowForm}>{ showForm ? 'Cancel' : 'Add Gear'}
+      </button>
+      { showForm  && 
+        <form onSubmit={handleSubmit}>
+          <h2>Add Gear</h2>
+          <TypedInput
+            type="text"
+            label="Title"
+            name="title"
+            autocomplete="off"
+            onChange={handleChange}
+          />
+          <TypedInput
+            type="text"
+            label="Make & Model"
+            name="makeModel"
+            autocomplete="off"
+            onChange={handleChange}
+          />
+          <Checkboxes
+            name="categories"
+            label="Categories"
+            options={gearCategories}
+            onChange={handleChange}
+          />
+          <TextArea
+            label="Description"
+            name="description"
+            onChange={handleChange}
+          />
+          <button className="button lazuli" type="submit">Submit</button>
+        </form>
+      }
+    </div>
   );
 };
 

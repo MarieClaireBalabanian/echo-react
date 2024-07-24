@@ -10,9 +10,6 @@ const UserGear = () => {
   const gearList = useSelector((state) => state.gear);
   const dispatch = useDispatch();
 
-  const [view, setView] = useState('GearList');
-
-
 
   useEffect(() => {
     const fetchUserGear = async () => {
@@ -29,14 +26,8 @@ const UserGear = () => {
   return (
     <div>
       <h1>My Gear</h1>
-      { view === 'GearList' && <button className="button lazuli" onClick={() => setView('AddGearForm')}>Add Gear</button> }
-      { view === 'AddGearForm' && 
-         <div>
-          <button className="button orange" onClick={() => setView('GearList')}>Cancel</button>
-          <AddGearForm /> 
-         </div>
-      }
-
+      <AddGearForm /> 
+      
       { gearList.length > 0 ?
         <GearList gearList={gearList}  />
         :
