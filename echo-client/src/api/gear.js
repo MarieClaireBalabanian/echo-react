@@ -14,9 +14,9 @@ export const createUserGearItem = async (formData, userId) => {
   }
 };
 
-export const getUserGearItems = async (id) => {
+export const getUserGearItems = async (userId) => {
   try {
-    const response = await fetch(`${echo_api}/gear/${id}`);
+    const response = await fetch(`${echo_api}/gear/${userId}`);
     const gear = await response.json();
     return { response, gear };
   } catch (error) {
@@ -24,9 +24,23 @@ export const getUserGearItems = async (id) => {
   }
 };
 
-export const deleteUserGearItem = async (gearId) => {
+
+export const editiUserGearItem = async (userId, gearId) => {
   try {
-    const response = await fetch(`${echo_api}/gear/${gearId}`, {
+    const response = await fetch(`${echo_api}/gear/${userId}/${gearId}`, {
+      method: "delete",
+      headers: { "Content-Type": "application/json" },
+    });
+    const json = await response.json();
+    return { response, json };
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const deleteUserGearItem = async (userId, gearId) => {
+  try {
+    const response = await fetch(`${echo_api}/gear/${userId}/${gearId}`, {
       method: "delete",
       headers: { "Content-Type": "application/json" },
     });

@@ -13,6 +13,8 @@ import Signup from "./pages/Signup";
 import GearSearch from "./pages/gear/GearSearch";
 import UserProfile from "./pages/user/UserProfile";
 import UserGear from "./pages/user/UserGear";
+import UserBookmarks from "./pages/user/UserBookmarks";
+import UserMessages from './pages/user/UserMessages';
 import UserLayout from "./layouts/UserLayout";
 import Header from "./components/GlobalHeader";
 import Footer from "./components/GlobalFooter";
@@ -94,10 +96,19 @@ function App() {
                   path="mygear"
                   element={<UserGear />}
                 />
+                <Route
+                  path="bookmarks"
+                  element={<UserBookmarks />}
+                />
+                <Route
+                  path="messages"
+                  element={<UserMessages />}
+                />
               </Route>
             </Routes>
           </main>
         }
+        <div id="modal-wrapper"></div>
       </div>
       <Footer />
     </div>

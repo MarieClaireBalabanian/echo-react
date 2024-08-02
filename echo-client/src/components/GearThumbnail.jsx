@@ -1,31 +1,26 @@
 import PropTypes from "prop-types";
-import { Link, useParams, useLocation } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import GearThumbnailActions from "./GearThumbnailActions";
+import GearThumbnailBookmark from './GearThumbnailBookmark';
 import '../assets/styles/components/_GearThumbnail.scss';
 
-
 const GearThumbnail = ({ item, featured = false }) => {
+  const detailLink = `/gear/${item.UserId}/${item.id}`;
   const params = useParams();
-  const location = useLocation();
-  const { hash, pathname, search } = location;
-  console.log({location})
-  // const route = useRoute();
-  console.log(params)
-
+  const belongsToUser = !!params.username;
+  
   return (
-    <div className={"gear-thumbnail" + (featured ? "featured" : "")}>
+    <Link to={detailLink} className={"gear-thumbnail" + (featured ? "featured" : "")}>
       <img src="/wave.png" />
       <div className="copy">
         <h3>{item.title}</h3>
         <h4>{item.makeModel}</h4>
         <p>{item.location}</p>
         {featured && <p>{item.description}</p>}
-        <GearThumbnailActions
-          gearId={item.id}
-          title={item.title}
-        />
+        { belongsToUser && <GearThumbnailActions gearItem={item} /> }
+        { !belongsToUser && <GearThumbnailBookmark gearItem={item} /> }
       </div>
-    </div>
+    </Link>
   );
 };
 

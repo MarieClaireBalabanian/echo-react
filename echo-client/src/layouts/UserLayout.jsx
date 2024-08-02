@@ -1,10 +1,10 @@
-import UserSidebar from "../components/UserSidebar";
+import UserMenu from "../components/UserMenu";
 import { Outlet } from "react-router-dom";
 
 const UserLayout = () => {
   return (
       <div className="container">
-        <UserSidebar />
+        <UserMenu />
         <div className="main-content">
           <Outlet />
         </div>

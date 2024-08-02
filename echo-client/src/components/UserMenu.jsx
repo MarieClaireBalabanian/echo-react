@@ -1,13 +1,13 @@
 import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
-import '../assets/styles/components/_UserSidebar.scss';
+import '../assets/styles/components/_UserMenu.scss';
 
-const Sidebar = () => {
+const UserMenu = () => {
   const { username } = useParams();
 
   return (
     username && (
-      <div className="user-sidebar">
+      <div className="user-menu">
         <nav>
           <ul>
             <li>
@@ -29,4 +29,4 @@ const Sidebar = () => {
   );
 };
 
-export default Sidebar;
+export default UserMenu;

@@ -11,8 +11,7 @@ const GearSearch = () => {
 
   const fetchAllGear = async () => {
     try {
-      const { response, json } = await getAllGearItems(userId);
-      console.log(json.gear)
+      const { json } = await getAllGearItems(userId);
       setGearList([...json.gear]);
     } catch (error) {
       console.log(error);
@@ -31,3 +30,7 @@ const GearSearch = () => {
 };
 
 export default GearSearch;
+
+
+
+
