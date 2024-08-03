@@ -15,18 +15,18 @@ const Header = () => {
             <GlobalImage image={ {url: '/logo.png', alt: 'Homepage'}} />
           </Link>
         </div>
-        <div>
+        <div className="flex-align-center">
           <Link to="/gear">Find Gear</Link>
           {isLoggedIn && username ? 
-            <div>
+            <>
               <Link className="button yellow" to={`/user/${username}`}>Account</Link>
               <Link className="button orange" to="/signout">Sign Out</Link>
-            </div>
+            </>
             :   
-            <div>
+            <>
               <Link className="button yellow" to="/login">Log In</Link>
               <Link className="button orange" to="/signup">Join</Link>
-            </div>
+            </>
           }
         </div>
       </div>

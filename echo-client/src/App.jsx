@@ -59,58 +59,60 @@ function App() {
   }, []);
 
   return (
-    <div className="App flex-column">
-      <ScrollToTop />
-      <Header />
-      <div className="page flex-column">
-        { isLoading ? 
-          <h2>Loading</h2>
-          :
-          <main>
-            <Routes>
-              <Route
-                exact
-                path="/"
-                element={<Home />}
-              />
-              <Route
-                path="/login"
-                element={<Login />}
-              />
-              <Route
-                path="/signup"
-                element={<Signup />}
-              />
-              <Route
-                path="/gear"
-                element={<GearSearch />}
-              />
-              <Route
-                path="/user/:username"
-                element={isLoggedIn ? <UserLayout /> : <Home />}>
+    <div>
+      <div id="app" className="App flex-column">
+        <ScrollToTop />
+        <Header />
+        <div className="page flex-column">
+          { isLoading ? 
+            <h2>Loading</h2>
+            :
+            <main>
+              <Routes>
                 <Route
-                  index
-                  element={<UserProfile />}
+                  exact
+                  path="/"
+                  element={<Home />}
                 />
                 <Route
-                  path="mygear"
-                  element={<UserGear />}
+                  path="/login"
+                  element={<Login />}
                 />
                 <Route
-                  path="bookmarks"
-                  element={<UserBookmarks />}
+                  path="/signup"
+                  element={<Signup />}
                 />
                 <Route
-                  path="messages"
-                  element={<UserMessages />}
+                  path="/gear"
+                  element={<GearSearch />}
                 />
-              </Route>
-            </Routes>
-          </main>
-        }
-        <div id="modal-wrapper"></div>
+                <Route
+                  path="/user/:username"
+                  element={isLoggedIn ? <UserLayout /> : <Home />}>
+                  <Route
+                    index
+                    element={<UserProfile />}
+                  />
+                  <Route
+                    path="mygear"
+                    element={<UserGear />}
+                  />
+                  <Route
+                    path="bookmarks"
+                    element={<UserBookmarks />}
+                  />
+                  <Route
+                    path="messages"
+                    element={<UserMessages />}
+                  />
+                </Route>
+              </Routes>
+            </main>
+          }
+        </div>
+        <Footer />
       </div>
-      <Footer />
+      <div id="modal-root"></div>
     </div>
   );
 }

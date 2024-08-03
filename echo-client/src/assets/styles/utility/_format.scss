@@ -6,9 +6,7 @@
   text-align: center;
 }
 
-.flex-wrapper {
-  display: flex;
-}
+
 
 .flex-column {
   display: flex;
@@ -18,6 +16,11 @@
 .flex-row-between {
   display: flex;
   justify-content: space-between;
+}
+
+.flex-align-center {
+  display: flex;
+  align-items: center;
 }
 
 .container {

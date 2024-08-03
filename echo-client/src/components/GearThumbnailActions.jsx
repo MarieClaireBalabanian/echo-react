@@ -1,10 +1,34 @@
+import { useState } from "react";
 import PropTypes from "prop-types";
+import GlobalModal from "./GlobalModal";
+import DeleteGearForm from "./forms/DeleteGearForm";
 
 const GearThumbnailActions = ({ gearItem }) => {
+  const [isOpen, setOpen]= useState(false)
+  const [action, setAction]= useState(null)
+
+
+  const handleDelete = (e) => {
+    toggleModal(e);
+    setAction('delete');
+  }
   
+  const handleEdit = (e) => { 
+    toggleModal(e); 
+    setAction('edit');
+  }
+
+  const toggleModal = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setOpen(!isOpen);
+    if (!isOpen) setAction(null);
+  }
+
+
   return (
     <div className="gear-thumbnail-actions">
-        <button aria-label="delete my gear item">
+        <button onClick={handleDelete} aria-label="delete my gear item">
           <svg
             viewBox="0 0 24 24"
             fill="none"
@@ -50,7 +74,7 @@ const GearThumbnailActions = ({ gearItem }) => {
             </g>
           </svg>
         </button>
-        <button aria-label="edit my gear item">
+        <button onClick={handleEdit} aria-label="edit my gear item">
           <svg
             viewBox="-2.56 0 89.725 89.725"
             xmlns="http://www.w3.org/2000/svg"
@@ -107,6 +131,19 @@ const GearThumbnailActions = ({ gearItem }) => {
             </g>
           </svg>
         </button>
+          {
+            (isOpen && action) && 
+            <GlobalModal 
+              isOpen={isOpen} 
+              onClose={toggleModal} 
+            >
+              { action === 'delete' ?
+                <DeleteGearForm gearItem={gearItem} />
+                : 
+                <h1>Edit</h1>
+              }
+            </GlobalModal>
+          }
     </div>
   );
 };
