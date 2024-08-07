@@ -12,6 +12,10 @@ const Category = sequelize.define("Category", {
     type: DataTypes.STRING,
     allowNull: false,
   },
+  slug: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  }
 });
 
 module.exports = { Category, sequelize };

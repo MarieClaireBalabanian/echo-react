@@ -25,13 +25,13 @@ const UserGear = () => {
 
   return (
     <div>
-      <h1>My Gear</h1>
+      <h1 className="h1">My Gear</h1>
       <AddGearForm /> 
       
       { gearList.length > 0 ?
         <GearList gearList={gearList}  />
         :
-        <h2>You have no gear!</h2>
+        <h2 className="h2">You have no gear!</h2>
       }
     </div>
   );

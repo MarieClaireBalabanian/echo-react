@@ -8,13 +8,12 @@ const GlobalModal = ({children, isOpen, onClose }) => {
   const modalRoot = document.getElementById('modal-root');
 
   useEffect(() => {
-    if (isOpen) document.body.style.overflow = 'hidden';
-
+    document.body.style.overflow = 'hidden';
     return () => {
       document.body.style.overflow = 'auto';
     };
     
-  }, [isOpen]);
+  }, []);
   
   return createPortal(
     <div className="modal"

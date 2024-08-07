@@ -4,7 +4,7 @@ const UserProfile = () => {
   const userProfile = useSelector((state) => state.user);
 
   return (
-    <div>{userProfile ? <h1>Welcome {userProfile.username}</h1> : <h1>Loading Profile</h1>}</div>
+    <div>{userProfile ? <h1 className="h1">Welcome {userProfile.username}</h1> : <h1 className="h1">Loading Profile</h1>}</div>
   );
 };
 

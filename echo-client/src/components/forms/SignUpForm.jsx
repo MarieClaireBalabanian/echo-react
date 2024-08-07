@@ -41,7 +41,7 @@ const SignUpForm = () => {
     <div className="signup-form">
       <form
         onSubmit={handleSubmit}>
-        <h2>Sign Up</h2>
+        <h2 className="h2">Sign Up</h2>
         <TypedInput
           type="text"
           label="Full Name"

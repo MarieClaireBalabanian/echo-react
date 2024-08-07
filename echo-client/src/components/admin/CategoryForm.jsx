@@ -28,7 +28,7 @@ const CategoryForm = () => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <h2>Add a Category</h2>
+      <h2 className="h2">Add a Category</h2>
       <div className="form-field">
         <label htmlFor="catName">Name:</label>
         <input

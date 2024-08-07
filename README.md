@@ -1,27 +1,38 @@
-# Echo - work in progress
+# Echo - Work in Progress
 
 React, React Router, Redux Toolkit, MapBox, Node, Express, Sequelize, MySQL
 
 todo:
 
-User:
+### User:
 JWT functionality
-Logged in vs. out views
+
 Edit Profile Form
+
 Edit Gear Item Form
-Bookmarks
-Messaging
 
-Image array in Gear model. Upload to S3 bucket.
-Rich text editor (maybe quill) in gear form.
-Bookmarks model
-Bookmarks related endpoints
+Bookmarks - model, endpoints, etc..
 
-Search page:
+Messaging - model, endpoints, websockets, db, etc..
+
+### Gear:
+Image array in Gear model, and upload to S3 bucket.
+
+Rich text editor (maybe quill) in gear form for description.
+
+
+### Search page:
+
 Filter gear by string search or category
-Mapbox Map vs. List View
-Pagination
 
-Header / Footer
-Styling (probs last)
+Paginated calls
+
+Mapbox Map vs. List View
+
+
+### Misc: 
+Header & Footer
+
+Styling 
+
 Content

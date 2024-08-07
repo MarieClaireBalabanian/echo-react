@@ -19,6 +19,8 @@
     "mysql2": "^3.9.7",
     "prisma": "^5.14.0",
     "react-redux": "^9.1.2",
-    "sequelize": "^6.37.3"
+    "sequelize": "^6.37.3",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^5.0.1"
   }
 }

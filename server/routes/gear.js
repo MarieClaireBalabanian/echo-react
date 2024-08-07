@@ -13,6 +13,6 @@ gearRouter.get("/", getAllGearItems);
 gearRouter.delete("/", deleteAllGearItems);
 gearRouter.post("/:userId", createUserGearItem);
 gearRouter.get("/:userId", getUserGearItems);
-gearRouter.delete("/:gearId", deleteUserGearItem);
+gearRouter.delete("/:userId/:gearId", deleteUserGearItem);
 
 module.exports = { gearRouter };

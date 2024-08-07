@@ -23,13 +23,7 @@ const UserBookmarks = () => {
 
   return (
     <div>
-      <h1>My Bookmarks</h1>
-      
-      {/* { gearList.length > 0 ?
-        <GearList gearList={gearList}  />
-        :
-        <h2>You have no gear!</h2>
-      } */}
+      <h1 className="h1">My Bookmarks</h1>
     </div>
   );
 };

@@ -8,7 +8,7 @@ const BlockHero = ({data }) => {
       { data?.image?.url && <GlobalImage className="absolute-fill" imgClass="background-cover" image={ {url: data.image.url , alt: data?.image.alt}} /> }
 
       <div className="container">
-        { data?.headline && <h2>{ data.headline }</h2> }
+        { data?.headline && <h2 className="h2">{ data.headline }</h2> }
         { data?.copy && <p>{ data.copy }</p> }
       </div>
     </section>

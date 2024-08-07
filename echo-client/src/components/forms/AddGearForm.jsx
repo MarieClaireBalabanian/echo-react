@@ -53,7 +53,7 @@ const AddGearForm = () => {
       </button>
       { showForm  && 
         <form onSubmit={handleSubmit}>
-          <h2>Add Gear</h2>
+          <h2 className="h2">Add Gear</h2>
           <TypedInput
             type="text"
             label="Title"

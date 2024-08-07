@@ -19,6 +19,9 @@ import UserLayout from "./layouts/UserLayout";
 import Header from "./components/GlobalHeader";
 import Footer from "./components/GlobalFooter";
 import ScrollToTop from "./utilities/scrollToTop";
+import GearCategoriesIndex from "./pages/gear/GearCategoriesIndex";
+import GearCategoryDetail from "./pages/gear/GearCategoryDetail";
+import GearItemDetail from "./pages/gear/GearItemDetail";
 
 
 function App() {
@@ -82,10 +85,28 @@ function App() {
                   path="/signup"
                   element={<Signup />}
                 />
+
+                {/* // Gear Routes */}
                 <Route
+                  exact
                   path="/gear"
                   element={<GearSearch />}
                 />
+                <Route
+                  exact
+                  path="/gear/categories"
+                  element={<GearCategoriesIndex />}
+                />
+                <Route
+                  path="/gear/categories/:categorySlug"
+                  element={<GearCategoryDetail />}
+                />
+                 <Route
+                  path="/gear/:gearId"
+                  element={<GearItemDetail />}
+                />
+
+                {/* // User Routes */}
                 <Route
                   path="/user/:username"
                   element={isLoggedIn ? <UserLayout /> : <Home />}>

@@ -1,5 +1,6 @@
 const { Category, sequelize } = require("../models/Category");
 const { GearItem } = require("../models/GearItem");
+const slugify = require("../utils/slugify");
 
 const createCategory = async (req, res) => {
   try {
@@ -8,7 +9,10 @@ const createCategory = async (req, res) => {
     });
     if (existingCategory) return res.status(409).json({ error: "Category already exists" });
 
-    await Category.create({ name: req.body.name });
+    await Category.create({
+      name: req.body.name,
+      slug: slugify(req.body.name),
+    });
     res.status(201).json({ message: "Category created" });
   } catch {
     res.status(500).json({ message: "Error creating category" });

@@ -40,7 +40,7 @@ const LoginForm = () => {
     <div className="login-form">
       <form
         onSubmit={handleSubmit}>
-        <h2>Log In</h2>
+        <h2 className="h2">Log In</h2>
         <TypedInput
           type="email"
           label="Email Address"

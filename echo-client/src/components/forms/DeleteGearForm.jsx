@@ -22,8 +22,8 @@ const DeleteGearForm = ({ gearItem }) => {
 
   return (
     <div>
-        <form onSubmit={handleDelete}>
-          <h2>Are you sure you want to delete {gearItem.title}?</h2>
+        <form className="text-center" onSubmit={handleDelete}>
+          <h2 className="h4">Are you sure you want to delete {gearItem.title}?</h2>
           <button className="button orange" type="submit">Delete</button>
         </form>
     </div>

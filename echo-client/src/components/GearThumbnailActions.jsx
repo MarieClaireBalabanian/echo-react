@@ -140,7 +140,7 @@ const GearThumbnailActions = ({ gearItem }) => {
               { action === 'delete' ?
                 <DeleteGearForm gearItem={gearItem} />
                 : 
-                <h1>Edit</h1>
+                <h2 className="h2">Edit</h2>
               }
             </GlobalModal>
           }

@@ -24,7 +24,7 @@ const GearSearch = () => {
 
   return (
     <div className="container">
-      {gearList ? <GearList gearList={gearList} /> : <h1>No results found</h1>}
+      {gearList ? <GearList gearList={gearList} /> : <p className="h3">No results found</p>}
     </div>
   );
 };

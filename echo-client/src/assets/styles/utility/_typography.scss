@@ -17,27 +17,27 @@ body {
   font-weight: 300 !important;
 }
 
-h1 {
+.h1 {
   font-size: 3.5rem;
   font-family: $title;
   text-transform: uppercase;
   margin-bottom: .8em;
 }
 
-h2 {
+.h2 {
   font-size: 3rem;
   margin-bottom: 1em;
   font-family: $title;
 }
 
-h3 {
+.h3 {
   font-size: 1.2rem;
   font-weight: 500;
   margin-bottom: 1em;
   font-family: $title;
 }
 
-h4 {
+.h4 {
   font-size: 1rem;
   margin-bottom: 1em;
   font-family: $title;
@@ -46,3 +46,31 @@ h4 {
 p {
   font-size: 1.1rem;
 }
+
+.tags-list {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 0 .8em -3px;
+}
+
+.tag {
+  font-size: 0.8rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin: 3px;
+
+  a {
+    background: $orange;
+    padding: .3em .4em .2em;
+    color: $white;
+    border: 2px solid $orange;
+
+    &:hover, &:focus {
+      background: unset;
+      border-color: $orange;
+      color: $black;
+    }
+  }
+}
+ 

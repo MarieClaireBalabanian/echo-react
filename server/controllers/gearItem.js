@@ -44,13 +44,31 @@ const getUserGearItems = async (req, res) => {
   }
 };
 
-const deleteUserGearItem = async (req, res) => {
+const editUserGearItem = async (req, res) => {
   try {
     const gearItem = await GearItem.findByPk(req.params.gearId);
-    if (!gearItem) return res.status(200).json({ message: "item doesn't exist" });
+    if (!gearItem) return res.status(404).json({ message: "item doesn't exist" });
     await gearItem.setCategories([]);
     await gearItem.destroy();
     res.status(200).json({ message: "Item deleted!" });
+  } catch (error) {
+    res.status(500).json({ message: "Internal Error", error: error });
+  }
+};
+
+
+const deleteUserGearItem = async (req, res) => {
+  try {
+    const gearItem = await GearItem.findByPk(req.params.gearId);
+    if (!gearItem) return res.status(404).json({ message: "item not found" });
+    await gearItem.setCategories([]);
+    await gearItem.destroy();
+    const updatedGearItems = await GearItem.findAll({
+      where: {
+        userId: req.params.userId
+      } 
+    });
+    res.status(200).json({ gear: updatedGearItems, message: `${gearItem.title} has been deleted.`});
   } catch (error) {
     res.status(500).json({ message: "Internal Error", error: error });
   }
