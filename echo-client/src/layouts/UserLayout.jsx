@@ -1,4 +1,4 @@
-import UserMenu from "../components/UserMenu";
+import UserMenu from "../components/user/UserMenu";
 import { Outlet } from "react-router-dom";
 
 const UserLayout = () => {

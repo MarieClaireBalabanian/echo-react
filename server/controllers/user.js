@@ -29,6 +29,7 @@ const createUser = async (req, res) => {
       coords: req.body.coords,
       location: req.body.location,
     });
+
     // create jwt token
     const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET);
     res.status(201).json({ user: user, token: token, message: "Successfully Registered" });
@@ -95,6 +96,7 @@ const editUser = async (req, res) => {
     res.status(500).json({ message: "Internal Error", error: error });
   }
 };
+
 const deleteUser = async (req, res) => {
   try {
     const user = await User.findByPk(req.params.id, {});
@@ -128,7 +130,33 @@ const getAllUsers = async (req, res) => {
   }
 };
 
-const deleteAllUsers = async (req, res) => {};
+const deleteAllUsers = async (req, res) => {
+  try {
+    // Get all users including associated gear items
+    const users = await User.findAll({
+      include: ['GearItems']
+    });
+
+    // Delete each user's gear items first
+    for (const user of users) {
+      if (user.GearItems && user.GearItems.length > 0) {
+        await Promise.all(
+          user.GearItems.map(async (gearItem) => {
+            await gearItem.setCategories([]); // remove associated categories!
+            await gearItem.destroy(); // then delete gear item
+          })
+        );
+      }
+    }
+
+    // Now delete all users
+    await User.destroy({ where: {} });
+    
+    res.status(200).json({ message: "All users and their gear items deleted" });
+  } catch (error) {
+    res.status(500).json({ message: "Internal Error", error: error });
+  }
+};
 
 module.exports = {
   createUser,

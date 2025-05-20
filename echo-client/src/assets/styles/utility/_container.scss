@@ -1,0 +1,21 @@
+$max-container: 1280px;
+$gutter: 20px;
+
+// Breakpoints
+$mobile: 640px;
+$tablet: 768px;
+$desktop: 1024px;
+$desktop-lg: 1280px;
+$desktop-xl: 1536px;
+
+.container {
+    padding: 0 $gutter;
+    max-width: $max-container;
+    margin: 0 auto;
+    position: relative;
+    z-index: 2;
+    
+    @media (min-width: $tablet) {
+        padding: 0 #{$gutter * 2};
+    }
+}

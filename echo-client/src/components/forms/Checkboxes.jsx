@@ -1,11 +1,27 @@
 import PropTypes from "prop-types";
-import { useState } from 'react';
-// Required defaults to true
+import { useState, useEffect } from 'react';
 
-// TODO: client-side validation, implement appropriate aria attributes
+const Checkboxes = ({ 
+    name, 
+    label, 
+    options, 
+    required = true, 
+    onChange,
+    selectedOptions: externalSelectedOptions = null // Can be null if no external control like search params
+  }) => {
 
-const Checkboxes = ({ name, label, options, required = true, onChange }) => {
-  const [selectedOptions, setSelectedOptions] = useState([]);
+  const [internalSelectedOptions, setInternalSelectedOptions] = useState(
+    externalSelectedOptions || []
+  );
+  
+  const isControlled = externalSelectedOptions !== null;
+  const selectedOptions = isControlled ? externalSelectedOptions : internalSelectedOptions;
+  
+  useEffect(() => {
+    if (isControlled) {
+      setInternalSelectedOptions(externalSelectedOptions);
+    }
+  }, [isControlled, externalSelectedOptions]);
 
   const handleToggleOptions = (e) => {
     const { value } = e.target;
@@ -15,7 +31,11 @@ const Checkboxes = ({ name, label, options, required = true, onChange }) => {
     if (isSelected) updatedSelection.splice(updatedSelection.indexOf(value), 1);
     else updatedSelection.push(value);
 
-    setSelectedOptions(updatedSelection);
+    // In uncontrolled mode, update internal state
+    if (!isControlled) {
+      setInternalSelectedOptions(updatedSelection);
+    }
+    
     onChange(name, updatedSelection);
   };
   
@@ -25,9 +45,9 @@ const Checkboxes = ({ name, label, options, required = true, onChange }) => {
         {label}
         {required && <span aria-hidden="true">*</span>}
       </legend>
-      <div className="checkboxes grid grid-4">
+      <div className="checkboxes grid grid-cols-2 tablet:grid-cols-3 desktop-lg:grid-cols-4">
         {options.length > 0 && options.map((option, index) => (
-        <div className="checkbox-wrapper" key={`select-${name}-${index}`}>
+        <div className="checkbox-wrapper" key={`checkbox-${name}-${index}`}>
           <input
             type="checkbox"
             id={`checkbox-${option.id}`}
@@ -49,6 +69,7 @@ Checkboxes.propTypes = {
   options: PropTypes.array.isRequired,
   required: PropTypes.bool,
   onChange: PropTypes.func.isRequired,
+  selectedOptions: PropTypes.array
 };
 
 export default Checkboxes;

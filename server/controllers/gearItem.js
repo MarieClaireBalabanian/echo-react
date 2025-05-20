@@ -81,7 +81,13 @@ const getAllGearItems = async (req, res) => {
       whereStatement.UserId = { [Op.ne]: req.query.exclude }
     }
     const gear = await GearItem.findAll({
-      where: whereStatement
+      where: whereStatement,
+      attributes: ["title", "id", "location", "coords"],
+      include: [{
+        model: Category,
+        attributes: ["name", "id"],
+        through: { attributes: [] },
+      }],
     });
     res.status(200).json({
       gear: gear,
@@ -108,10 +114,108 @@ const deleteAllGearItems = async (req, res) => {
   }
 };
 
+const searchGearItems = async (req, res) => {
+  try {
+    const limit = 12;
+    const page = parseInt(req.query.page) || 1;
+    const offset = (page - 1) * limit;
+    
+    const searchQuery = req.query.keyword || '';
+    const categories = req.query.categories ? req.query.categories.split(',') : [];
+    const excludeUserId = req.query.excludeUserId;
+
+    let whereClause = {};
+    
+    // Handle logged in user's gear exclusion
+    if (excludeUserId) {
+      whereClause.UserId = { [Op.ne]: excludeUserId };
+    }
+
+    // Handle keyword search
+    if (searchQuery) {
+      const searchCondition = {
+        [Op.or]: [
+          { title: { [Op.like]: `%${searchQuery}%` } },
+          { description: { [Op.like]: `%${searchQuery}%` } },
+          { makeModel: { [Op.like]: `%${searchQuery}%` } }
+        ]
+      };
+      whereClause = {
+        ...whereClause,
+        ...searchCondition
+      };
+    }
+
+    const gearItems = await GearItem.findAndCountAll({
+      where: whereClause,
+      limit: limit,
+      offset: offset,
+      include: [
+        {
+          model: Category,
+          // Filter gear items by category
+          where: categories.length > 0 ? { id: { [Op.in]: categories } } : undefined,
+          through: { attributes: [] },
+        }
+      ],
+      distinct: true,
+    });
+
+    res.status(200).json({
+      items: gearItems.rows,
+      pagination: {
+        currentPage: page,
+        totalPages: Math.ceil(gearItems.count / limit),
+        totalItems: gearItems.count,
+        itemsPerPage: limit
+      }
+    });
+  } catch (error) {
+    console.error('Search error:', error);
+    res.status(500).json({ message: "Internal Error", error: error });
+  }
+};
+
+const getGearItemsByCategory = async (req, res) => {
+  try {
+    const limit = 12;
+    const page = parseInt(req.query.page) || 1;
+    const offset = (page - 1) * limit;
+    
+    const gearItems = await GearItem.findAndCountAll({
+      limit: limit,
+      offset: offset,
+      distinct: true,
+      include: [
+        {
+          model: Category,
+          where: { slug: req.params.categorySlug },
+          through: { attributes: [] },
+        }
+      ],
+    });
+
+    res.status(200).json({
+      items: gearItems.rows,
+      pagination: {
+        currentPage: page,
+        totalPages: Math.ceil(gearItems.count / limit),
+        totalItems: gearItems.count,
+        itemsPerPage: limit
+      }
+    });
+    
+  } catch (error) {
+    res.status(500).json({ message: "Internal Error", error: error });
+  }
+};
+
 module.exports = {
   createUserGearItem,
   deleteUserGearItem,
   getAllGearItems,
+  getGearItemsByCategory,
   getUserGearItems,
   deleteAllGearItems,
+  searchGearItems,
 };

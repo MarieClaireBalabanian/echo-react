@@ -22,7 +22,7 @@ const TypedInput = ({ type, name, label, required = true, autocomplete, value, o
         name={name}
         value={value}
         required={required}
-        // aria-required={ required ? 'true' : null}
+        aria-required={ required ? 'true' : null}
         autoComplete={autocomplete ? autocomplete : "off"}
         onChange={handleChange}
       />

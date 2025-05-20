@@ -4,9 +4,9 @@ import GearThumbnail from "./GearThumbnail";
 const GearList = ({ gearList }) => {
   return (
     gearList.length > 0 && (
-      <ul className="grid grid-3">
+      <ul className="grid mobile:grid-cols-2 tablet:grid-cols-3 desktop-lg:grid-cols-4">
         {gearList.map((item, index) => (
-          <li key={`item-${item.id}`}>
+          <li key={`gear-list-item-${item.id}`}>
             <GearThumbnail item={item} />
           </li>
         ))}

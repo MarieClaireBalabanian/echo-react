@@ -1,7 +1,8 @@
-const GearCategoryDetail = () => {
+import GearSearch from '../../components/gear/GearSearch';
 
+const GearCategoryDetail = () => {
   return (
-   <h1>Category Detail</h1>
+    <GearSearch showCategories={false}/>
   );
 };
 

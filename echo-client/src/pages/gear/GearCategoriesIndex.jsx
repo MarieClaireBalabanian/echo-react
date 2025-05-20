@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import CategoryThumbnail from "../../components/CategoryThumbnail";
+import CategoryThumbnail from "../../components/gear/CategoryThumbnail";
 import '../../assets/styles/components/_GearThumbnail.scss';
 
 const GearCategoriesIndex = () => {
@@ -9,11 +9,11 @@ const GearCategoriesIndex = () => {
       {
         categories && categories.length > 0 ? (
           <div>
-            <h1 className="h1 text-center">Gear Categories</h1>
-            <ul className="grid grid-3">
+            <h1 className="h1 text-center">All Categories</h1>
+            <ul className="grid mobile:grid-cols-2 tablet:grid-cols-3 desktop:grid-cols-4">
               {
                 categories.map((category) => {
-                  return <CategoryThumbnail category={category} key={category.id} />
+                  <CategoryThumbnail category={category} key={category.id} />
                 })
               }
             </ul>

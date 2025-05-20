@@ -1,4 +1,4 @@
-import BlockHero from "../components/BlockHero";
+import BlockHero from "../components/blocks/BlockHero";
 
 const Home = () => {
 

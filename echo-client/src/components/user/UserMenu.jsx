@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
-import '../assets/styles/components/_UserMenu.scss';
+import '../../assets/styles/components/_UserMenu.scss';
 
 const UserMenu = () => {
   const { username } = useParams();

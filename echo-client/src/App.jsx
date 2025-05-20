@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { setCategories } from "./features/categories/categoriesSlice";
 import { setUserAuthStatus } from "./features/user/authSlice";
@@ -10,15 +10,15 @@ import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 
-import GearSearch from "./pages/gear/GearSearch";
+import Header from "./components/global/GlobalHeader";
+import Footer from "./components/global/GlobalFooter";
+import ScrollToTop from "./utilities/scrollToTop";
 import UserProfile from "./pages/user/UserProfile";
 import UserGear from "./pages/user/UserGear";
 import UserBookmarks from "./pages/user/UserBookmarks";
 import UserMessages from './pages/user/UserMessages';
 import UserLayout from "./layouts/UserLayout";
-import Header from "./components/GlobalHeader";
-import Footer from "./components/GlobalFooter";
-import ScrollToTop from "./utilities/scrollToTop";
+import GearIndex from "./pages/gear/GearIndex";
 import GearCategoriesIndex from "./pages/gear/GearCategoriesIndex";
 import GearCategoryDetail from "./pages/gear/GearCategoryDetail";
 import GearItemDetail from "./pages/gear/GearItemDetail";
@@ -27,6 +27,8 @@ import GearItemDetail from "./pages/gear/GearItemDetail";
 function App() {
   const echo_api = import.meta.env.VITE_API_URL;
   const dispatch = useDispatch();
+
+  const userProfile = useSelector((state) => state.user);
 
   const isLoggedIn = useSelector((state) => state.auth);
   const [isLoading, setIsLoading] = useState(true);
@@ -79,18 +81,22 @@ function App() {
                 />
                 <Route
                   path="/login"
-                  element={<Login />}
+                  element={!isLoggedIn ? <Login /> : <Navigate to="/" />}
                 />
                 <Route
                   path="/signup"
-                  element={<Signup />}
+                  element={!isLoggedIn ? <Signup /> : <Navigate to="/" />}
                 />
 
                 {/* // Gear Routes */}
                 <Route
                   exact
                   path="/gear"
-                  element={<GearSearch />}
+                  element={<GearIndex />}
+                />
+                <Route
+                  path="/gear/:gearId"
+                  element={<GearItemDetail />}
                 />
                 <Route
                   exact
@@ -101,31 +107,34 @@ function App() {
                   path="/gear/categories/:categorySlug"
                   element={<GearCategoryDetail />}
                 />
-                 <Route
-                  path="/gear/:gearId"
-                  element={<GearItemDetail />}
-                />
 
                 {/* // User Routes */}
                 <Route
-                  path="/user/:username"
-                  element={isLoggedIn ? <UserLayout /> : <Home />}>
+                  path="/user">
                   <Route
                     index
-                    element={<UserProfile />}
+                    element={isLoggedIn ? <Navigate to={`/user/${userProfile.username}`} /> : <Navigate to="/" />}
                   />
                   <Route
-                    path="mygear"
-                    element={<UserGear />}
-                  />
-                  <Route
-                    path="bookmarks"
-                    element={<UserBookmarks />}
-                  />
-                  <Route
-                    path="messages"
-                    element={<UserMessages />}
-                  />
+                    path=":username"
+                    element={isLoggedIn ? <UserLayout /> : <Navigate to="/" />}>
+                    <Route
+                      index
+                      element={<UserProfile />}
+                    />
+                    <Route
+                      path="mygear"
+                      element={<UserGear />}
+                    />
+                    <Route
+                      path="bookmarks"
+                      element={<UserBookmarks />}
+                    />
+                    <Route
+                      path="messages"
+                      element={<UserMessages />}
+                    />
+                  </Route>
                 </Route>
               </Routes>
             </main>

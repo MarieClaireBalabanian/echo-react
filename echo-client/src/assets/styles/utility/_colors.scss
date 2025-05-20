@@ -1,0 +1,32 @@
+$black: #000;
+$white: #fff;
+
+
+$blue: #0058fa;
+$aqua: #55DDE0;
+$lazuli: #33658A;
+$charcoal: #2c3c46;
+$yellow: #f4a701;
+$orange: #F26419;
+
+$colors-list: (
+    'white': $white,
+    'black': $black,
+    'blue': $blue,
+    'aqua': $aqua,
+    'lazuli': $lazuli,
+    'charcoal': $charcoal,
+    'yellow': $yellow,
+    'orange': $orange
+);
+
+
+@each $key, $val in $colors-list {
+    .text-#{$key} {
+        color: $val;
+    }
+
+    .bg-#{$key} {
+        background-color: $val;
+    }
+}

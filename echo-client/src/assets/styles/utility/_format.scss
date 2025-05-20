@@ -1,49 +1,220 @@
-.text-center {
-  text-align: center;
-}
-
-.text-right {
-  text-align: center;
-}
-
-
-
-.flex-column {
-  display: flex;
-  flex-direction: column;
-}
-
-.flex-row-between {
-  display: flex;
-  justify-content: space-between;
-}
-
-.flex-align-center {
-  display: flex;
-  align-items: center;
-}
-
-.container {
-  padding: 0 20px;
-  max-width: 1280px;
-  margin: 0 auto;
-  position: relative;
-  z-index: 2;
-}
-
 .relative {
-  position: relative;
+	position: relative;
 }
+
+
+.w-full {
+	width: 100%;
+}
+
+.h-full {
+	height: 100%;
+}
+
+
+// ============================ 
+// Responsive 'Display' Utility
+// ============================
+$display-list: (
+	'hidden': 'none',
+	'block': 'block',
+	'flex': 'flex'
+);
+
+@each $displayName, $value in $display-list {
+
+	.#{$displayName} {
+		display: $value;
+	}
+
+	.mobile\:#{$displayName} {
+		@media(min-width: $mobile) {
+			display: $value !important;
+		}
+	}
+
+	.tablet\:#{$displayName} {
+		@media(min-width: $tablet) {
+			display: $value !important;
+		}
+	}
+
+	.desktop\:#{$displayName} {
+		@media(min-width: $desktop) {
+			display: $value !important;
+		}
+	}
+
+	.desktop-lg\:#{$displayName} {
+		@media(min-width: $desktop-lg) {
+			display: $value !important;
+		}
+	}
+
+	.desktop-xl\:#{$displayName} {
+		@media(min-width: $desktop-xl) {
+			display: $value;
+		}
+	}
+}
+
+
+// ==================== 
+// Margin and Padding
+// ====================
+.m-auto {
+	margin: 0 auto;
+}
+
+// just add options. ex: (mobile-value, desktop-value)
+$margin-options: (12, 24) (24, 48) (36, 64) (48, 64) (64, 96);
+
+@each $option in $margin-options {
+	$mob: nth($option, 1);
+	$desk: nth($option, 2);
+
+	.mb-#{$mob}-#{$desk} {
+		@include rem(margin-bottom, $mob);
+
+		@media (min-width: $desktop) {
+			@include rem(margin-bottom, $desk);
+		}
+	}
+
+	.mt-#{$mob}-#{$desk} {
+		@include rem(margin-top, $mob);
+
+		@media (min-width: $desktop) {
+			@include rem(margin-top, $desk);
+		}
+	}
+
+	.m-#{$mob}-#{$desk} {
+		@include rem(margin-top, $mob);
+		@include rem(margin-bottom, $mob);
+
+		@media (min-width: $desktop) {
+			@include rem(margin-top, $desk);
+			@include rem(margin-bottom, $desk);
+		}
+	}
+
+	.p-#{$mob}-#{$desk} {
+		@include rem(padding-top, $mob);
+		@include rem(padding-bottom, $mob);
+
+		@media (min-width: $desktop) {
+			@include rem(padding-top, $desk);
+			@include rem(padding-bottom, $desk);
+		}
+	}
+}
+
+
+// ========================= 
+// Layout - Columns / Rows
+// =========================
+$columns : (1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12);
 
 .grid {
-  @media (min-width: 768px) {
-    display: grid;
-    grid-gap: 2vw;
+	display: grid;
+	gap: 24px;
+}
 
-    @for $i from 1 through 5 {
-      &.grid-#{$i} {
-          grid-template-columns: repeat($i, minmax(0, #{$i}fr));
-      }
-  }
-  }
+.flex {
+	display: flex;
+	gap: 12px;
+}
+
+.flex-wrap {
+	flex-wrap: wrap;
+}
+
+.justify-center {
+	justify-content: center;
+}
+
+.justify-between {
+	justify-content: space-between;
+}
+
+.align-start {
+	align-items: flex-start;
+}
+
+.align-center {
+	align-items: center;
+}
+
+@each $cols in $columns {
+
+	// GRID CLASSES
+	.grid-cols-#{$cols} {
+		grid-template-columns: repeat($cols, minmax(0, 1fr));
+	}
+
+	.mobile\:grid-cols-#{$cols} {
+		@media(min-width: $mobile) {
+			grid-template-columns: repeat($cols, minmax(0, 1fr));
+		}
+	}
+
+	.tablet\:grid-cols-#{$cols} {
+		@media(min-width: $tablet) {
+			grid-template-columns: repeat($cols, minmax(0, 1fr));
+		}
+	}
+
+	.desktop\:grid-cols-#{$cols} {
+		@media(min-width: $desktop) {
+			grid-template-columns: repeat($cols, minmax(0, 1fr));
+		}
+	}
+
+	.desktop-lg\:grid-cols-#{$cols} {
+		@media(min-width: $desktop-lg) {
+			grid-template-columns: repeat($cols, minmax(0, 1fr));
+		}
+	}
+
+	// FLEX CLASSES
+	.mobile\:flex-cols-#{$cols} {
+		display: flex;
+
+		@media(min-width: $mobile) {
+			>.flex-child {
+				width: #{calc(100/$cols) + '%'};
+			}
+		}
+	}
+
+	.tablet\:flex-cols-#{$cols} {
+		@media(min-width: $tablet) {
+			display: flex;
+
+			>.flex-child {
+				width: #{calc(100/$cols) + '%'};
+			}
+		}
+	}
+
+	.desktop\:flex-cols-#{$cols} {
+		@media(min-width: $desktop) {
+			display: flex;
+
+			>.flex-child {
+				width: #{calc(100/$cols) + '%'};
+			}
+		}
+	}
+
+	.desktop-lg\:flex-cols-#{$cols} {
+		@media(min-width: $desktop-lg) {
+			display: flex;
+
+			>.flex-child {
+				width: #{calc(100/$cols) + '%'};
+			}
+		}
+	}
 }

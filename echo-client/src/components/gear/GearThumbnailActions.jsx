@@ -1,7 +1,7 @@
 import { useState } from "react";
 import PropTypes from "prop-types";
-import GlobalModal from "./GlobalModal";
-import DeleteGearForm from "./forms/DeleteGearForm";
+import GlobalModal from "../global/GlobalModal";
+import DeleteGearForm from "../forms/DeleteGearForm";
 
 const GearThumbnailActions = ({ gearItem }) => {
   const [isOpen, setOpen]= useState(false)

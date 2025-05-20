@@ -1,0 +1,46 @@
+// screenreader helpers
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0,0,0,0);
+    border: 0;
+}
+
+.sr-only-focusable {
+    &:active, &:focus {
+        position: static;
+        width: auto;
+        height: auto;
+        margin: 0;
+        overflow: visible;
+        clip: auto;
+    }
+}
+
+.skip-link {
+    background: $blue;
+    color: $white;
+    padding: 10px;
+    left: 10px;
+    top: 0;
+
+    &:active, &:focus {
+        position: absolute;
+    }
+}
+
+
+// focus styles
+a, button, input, textarea, select, div {
+    &:focus-visible {
+        outline-color:#074ff9;
+        outline-offset: 3px;
+        outline-style: solid;
+        outline-width: 2.5px;
+        
+    }
+}

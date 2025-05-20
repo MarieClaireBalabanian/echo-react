@@ -1,12 +1,11 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { createUser } from "../../api/user";
-
+import useLoginUser from "../../hooks/useLoginUser";
 import TypedInput from "./TypedInput";
 import AddressAuto from "./AddressAuto";
 
 const SignUpForm = () => {
-  const navigate = useNavigate();
+  const login = useLoginUser();
 
   const [formData, setFormData] = useState({
     name: "",
@@ -28,10 +27,7 @@ const SignUpForm = () => {
     e.preventDefault();
     try {
       const { response, json } = await createUser(formData);
-      if (response.status === 201) {
-        localStorage.setItem("jwttoken", json.token);
-        navigate(`/user/${json.user.username}`);
-      }
+      if (response.status === 201) login(json)
     } catch (error) {
       console.log(error);
     }

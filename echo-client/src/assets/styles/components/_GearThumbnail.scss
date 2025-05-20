@@ -1,13 +1,13 @@
 .gear-thumbnail {
-  background: white;
-  filter: drop-shadow(0 0 0.65rem lightgray);
 
+  $copy-gutter: 20px;
+
+  filter: drop-shadow(0 0 0.65rem lightgray);
 
   .gear-thumbnail-inner {
     border-radius: 10px;
     overflow: hidden;
   }
-
 
   img {
     height: 200px;
@@ -17,10 +17,13 @@
   } 
   
   .copy {
-    padding: 20px;
+    padding: $copy-gutter $copy-gutter #{$copy-gutter *3};
   }
 
   .gear-thumbnail-actions {
+    position: absolute;
+    bottom: $copy-gutter;
+    right: $copy-gutter;
     display: flex;
     justify-content: flex-end;
     button {

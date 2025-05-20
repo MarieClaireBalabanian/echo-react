@@ -5,14 +5,12 @@
 $title: "Big Shoulders Display", "Helvetica" sans-serif;
 $body: "Inter", "Big Shoulders Display", sans-serif;
 
-:root {
+
+body {
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-}
-
-body {
   font-family: $body;
   font-weight: 300 !important;
 }
@@ -73,4 +71,24 @@ p {
     }
   }
 }
- 
+
+.text-center {
+  text-align: center;
+}
+
+.text-right {
+  text-align: right;
+}
+
+$weights: (
+  300,
+  500,
+  600,
+  700
+);
+
+@each $weight in $weights {
+  .weight-#{$weight} {
+    font-weight: $weight;
+  }
+}

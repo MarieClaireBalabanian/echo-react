@@ -40,7 +40,7 @@ const Admin = () => {
       {categories.length > 0 && (
         <ul>
           {categories.map((item, index) => (
-            <li key={index}>
+            <li key={item.id}>
               {item.name}
               <button onClick={() => handleEditItem(index)}>Edit</button>
               <button onClick={() => handleDeleteItem(index)}>Delete</button>

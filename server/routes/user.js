@@ -12,10 +12,12 @@ const {
 } = require("../controllers/user");
 
 // Users
+// global
 userRouter.post("/", createUser);
 userRouter.get("/", getAllUsers);
 userRouter.delete("/", deleteAllUsers);
 
+// individual
 userRouter.post("/login", loginUser);
 userRouter.post("/token", verifyUserToken);
 userRouter.get("/:id", getUser);

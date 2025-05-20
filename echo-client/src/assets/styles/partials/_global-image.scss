@@ -2,18 +2,21 @@
   position: relative;
   overflow: hidden;
 
-  &.absolute-fill {
+  img {
     position: absolute;
-    inset: 0 0 0 0;
+    z-index: 1;
+    inset: 0;
+    height: 100%;
+    width: 100%;
+    object-position: center;
+
+    &.img-cover {
+      object-fit: cover;
+    }
+    &.img-contain {
+      object-fit: contain;
+    }
   }
 }
 
-img.background-cover {
-  position: absolute;
-  z-index: 1;
-  inset: 0;
-  height: 100%;
-  width: 100%;
-  object-fit: cover;
-  object-position: center;
-}
+

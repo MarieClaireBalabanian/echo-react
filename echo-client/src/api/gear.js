@@ -63,3 +63,27 @@ export const getAllGearItems = async (userId) => {
     console.log(error);
   }
 };
+
+export const getGearItemsByCategory = async (categorySlug) => {
+  try {
+    const url = `${echo_api}/gear/categories/${categorySlug}`
+    const response = await fetch(url);
+    const json = await response.json();
+    return { response, json };
+  } catch (error) {
+    console.error('Error searching gear items:', error);
+    return { response: null, error };
+  }
+};
+
+export const searchGearItems = async (searchParams) => {
+  try {
+    const url = `${echo_api}/gear/search${searchParams.toString() ? `?${searchParams.toString()}` : ''}`;
+    const response = await fetch(url);
+    const json = await response.json();
+    return { response, json };
+  } catch (error) {
+    console.error('Error searching gear items:', error);
+    return { response: null, error };
+  }
+};

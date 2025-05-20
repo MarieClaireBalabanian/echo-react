@@ -1,14 +1,11 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
 import { loginUser } from "../../api/user";
-import { setUserProfile } from "../../features/user/userSlice";
+import useLoginUser from "../../hooks/useLoginUser";
 
 import TypedInput from "./TypedInput";
 
 const LoginForm = () => {
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
+  const login = useLoginUser();
 
   const [formData, setFormData] = useState({
     email: "",
@@ -26,11 +23,7 @@ const LoginForm = () => {
     e.preventDefault();
     try {
       const { response, json } = await loginUser(formData);
-      if (response.status === 200) {
-        localStorage.setItem("jwttoken", json.token);
-        dispatch(setUserProfile(json.user));
-        navigate(`/user/${json.user.username}`);
-      }
+      if (response.status === 200) login(json);
     } catch (error) {
       console.log(error);
     }

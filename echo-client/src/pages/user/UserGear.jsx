@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import GearList from "../../components/GearList";
+import GearList from "../../components/gear/GearList";
 import AddGearForm from "../../components/forms/AddGearForm";
 import { useDispatch, useSelector } from "react-redux";
 import { setUserGear } from "../../features/gear/gearSlice";

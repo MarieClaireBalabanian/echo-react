@@ -1,9 +1,18 @@
 
+html {
+  overflow-x: hidden;
+}
 
-.App {
+body  {
+  background-color: $black;
+  color: $white;
+}
+#app {
   margin: 0;
   width: 100%;
   min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
 .page {
@@ -17,7 +26,4 @@ main {
 
 .main-content {
   flex-grow: 1;
-
-  
 }
-

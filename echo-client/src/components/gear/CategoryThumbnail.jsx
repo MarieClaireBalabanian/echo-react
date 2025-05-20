@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import { Link, useParams } from "react-router-dom";
 
-import '../assets/styles/components/_CategoryThumbnail.scss';
+import '../../assets/styles/components/_CategoryThumbnail.scss';
 
 const CategoryThumbnail = ({ category }) => {
 

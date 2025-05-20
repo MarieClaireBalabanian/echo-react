@@ -1,6 +1,6 @@
 import { createPortal } from 'react-dom';
 import PropTypes from "prop-types";
-import '../assets/styles/components/_GlobalModal.scss';
+import '../../assets/styles/components/_GlobalModal.scss';
 import { useEffect } from 'react';
 
 
